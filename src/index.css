@@ -1,3 +1,16 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* --- Mobile modal scroll helpers (iOS) --- */
+.scroll-y-touch {
+  -webkit-overflow-scrolling: touch;  /* momentum scrolling on iOS */
+  overscroll-behavior: contain;       /* cegah bounce nembus ke body */
+  touch-action: pan-y;                 /* izinkan gesture scroll vertikal */
+}
+
+/* optional: supaya area atas/bawah aman di iPhone notch */
+.safe-py {
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+}

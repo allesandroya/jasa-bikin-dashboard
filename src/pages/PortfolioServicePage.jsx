@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useRef, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import {
   BarChart3,
@@ -24,9 +24,7 @@ import {
 } from "lucide-react";
 
 /* ============================
-   ASSETS
-   - thumb = *.jpg (poster hasil FFmpeg)
-   - video = *.gif (atau *.mp4 kalau sudah dikonversi)
+   ASSETS (GIF + Poster JPG)
 ============================= */
 // Excel
 import excel1 from "../assets/Excel1.gif";
@@ -87,7 +85,7 @@ import tableau8Poster from "../assets/Tableau8.jpg";
 /* -----------------------------
    Utils
 ------------------------------ */
-const WA_NUMBER = "6281234567890"; // TODO: ganti ke nomormu (tanpa +)
+const WA_NUMBER = "6281234567890"; // ganti nomormu (tanpa +)
 const waBase = (msg) => `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
 
 const money = (n) =>
@@ -101,7 +99,7 @@ const money = (n) =>
    Data (Portfolio)
 ------------------------------ */
 const CASES = [
-  /* ========== EXCEL ========== */
+  // ======== EXCEL
   {
     id: "excel-1",
     title: "Mess Dashboard",
@@ -300,7 +298,7 @@ const CASES = [
     ],
   },
 
-  /* ========== GOOGLE SHEETS ========== */
+  // ======== GOOGLE SHEETS
   {
     id: "gsheets-1",
     title: "Data Cleaning & Analytics Log (Supermarket)",
@@ -321,7 +319,7 @@ const CASES = [
     ],
   },
 
-  /* ========== LOOKER STUDIO ========== */
+  // ======== LOOKER STUDIO
   {
     id: "looker-1",
     title: "F&B Chain Performance (CAPEX/OPEX & Sales)",
@@ -362,7 +360,7 @@ const CASES = [
     ],
   },
 
-  /* ========== POWER BI ========== */
+  // ======== POWER BI
   {
     id: "powerbi-1",
     title: "Power BI — Store Sales with Discount Simulator",
@@ -384,7 +382,7 @@ const CASES = [
     ],
   },
 
-  /* ========== TABLEAU ========== */
+  // ======== TABLEAU
   {
     id: "tableau-1",
     title: "RFM Analysis — Overview",
@@ -676,7 +674,7 @@ export default function PortfolioServicePage() {
         </div>
       </section>
 
-      {/* PORTFOLIO (Featured 4 + toggle) */}
+      {/* PORTFOLIO */}
       <section id="portfolio" className="max-w-6xl mx-auto px-4 py-10 md:py-16">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-6">
           <div>
@@ -692,7 +690,7 @@ export default function PortfolioServicePage() {
               value={toolFilter}
               onChange={(v) => {
                 setToolFilter(v);
-                setShowAll(false); // reset ke featured saat ganti filter
+                setShowAll(false);
               }}
               options={["All", "Excel", "Google Sheets", "Looker Studio", "Power BI", "Tableau"]}
             />
@@ -704,7 +702,7 @@ export default function PortfolioServicePage() {
                 value={query}
                 onChange={(e) => {
                   setQuery(e.target.value);
-                  setShowAll(true); // saat cari, tampilkan semua
+                  setShowAll(true);
                 }}
               />
             </div>
@@ -766,104 +764,14 @@ export default function PortfolioServicePage() {
           </button>
         </div>
 
-        {/* MODAL */}
+        {/* MODAL (reworked) */}
         {active && (
-          <div
-            className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4"
-            onClick={() => setActive(null)}
-          >
-            <div
-              className="max-w-5xl w-full rounded-2xl bg-white p-6 shadow-xl"
-              onClick={(e) => e.stopPropagation()}
-            >
-              {/* Header */}
-              <div className="flex items-start justify-between gap-3">
-                <div>
-                  <div className="text-xl font-semibold">{active.title}</div>
-                  <div className="text-slate-500 mt-1">
-                    {active.client ? `Client: ${active.client} · ${active.industry}` : active.industry}
-                  </div>
-                </div>
-                <button className="p-2 rounded-lg hover:bg-slate-100" onClick={() => setActive(null)}>
-                  <X className="h-5 w-5" />
-                </button>
-              </div>
-
-              {/* Body */}
-              <div className="grid md:grid-cols-5 gap-6 mt-5">
-                {/* Media */}
-                <div className="md:col-span-3 space-y-4">
-                  <div className="relative rounded-xl overflow-hidden bg-slate-100">
-                    {(() => {
-                      const src = active.video || active.thumb;
-                      const isVideo =
-                        typeof src === "string" &&
-                        (src.endsWith(".mp4") || src.endsWith(".webm"));
-                      return isVideo ? (
-                        <video
-                          src={src}
-                          controls
-                          poster={active.thumb}
-                          preload="metadata"
-                          className="w-full bg-black h-[360px] md:h-[520px] object-contain"
-                        />
-                      ) : src.endsWith(".gif") ? (
-                        // GIF ditampilkan sebagai <img> (lebih ringan saat pause)
-                        <img
-                          src={src}
-                          alt="preview"
-                          className="w-full h-[360px] md:h-[520px] object-contain bg-white"
-                          loading="lazy"
-                          decoding="async"
-                        />
-                      ) : (
-                        <img
-                          src={active.thumb}
-                          alt="preview"
-                          className="w-full h-[360px] md:h-[520px] object-contain bg-white"
-                          loading="lazy"
-                          decoding="async"
-                        />
-                      );
-                    })()}
-                    <a
-                      href={active.video || active.thumb}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="absolute top-3 right-3 inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-white/90 backdrop-blur border text-xs hover:bg-white"
-                      title="Buka ukuran penuh"
-                    >
-                      <Maximize2 className="h-3.5 w-3.5" /> Full view
-                    </a>
-                  </div>
-
-                  {active.results?.length > 0 && (
-                    <div className="p-4 bg-indigo-50 rounded-xl text-sm">
-                      <div className="font-semibold mb-1">Hasil & Dampak</div>
-                      <ul className="list-disc ml-5 space-y-1">
-                        {active.results.map((r, i) => (
-                          <li key={i}>{r}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-                </div>
-
-                {/* Detail */}
-                <div className="md:col-span-2 space-y-4">
-                  <DetailBlock title="Problem" text={active.problem} variant="problem" />
-                  <DetailBlock title="Objektif" text={active.objective} variant="objective" />
-                  <DetailBlock title="Solusi" text={active.solution} variant="solution" />
-                  <a
-                    className="inline-flex items-center justify-center w-full px-4 py-2 rounded-2xl bg-indigo-600 text-white hover:bg-indigo-700"
-                    href={waBase(`Halo, saya tertarik project seperti: ${active.title}. Boleh diskusi scope & timeline?`)}
-                  >
-                    Diskusikan Proyek Ini
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
+          <Modal isOpen={!!active} onClose={() => setActive(null)}>
+            <ModalPanel
+              active={active}
+              onClose={() => setActive(null)}
+            />
+          </Modal>
         )}
       </section>
 
@@ -1067,6 +975,182 @@ export default function PortfolioServicePage() {
           <div>© {new Date().getFullYear()} Kerja.id — All rights reserved.</div>
         </div>
       </footer>
+    </div>
+  );
+}
+
+/* ============================
+   Modal (scrollable + body lock)
+============================= */
+function useBodyScrollLock(isOpen) {
+  const scrollYRef = useRef(0);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    // simpan posisi, lalu kunci body (fix iOS)
+    scrollYRef.current = window.scrollY || window.pageYOffset;
+    const original = {
+      position: document.body.style.position,
+      top: document.body.style.top,
+      left: document.body.style.left,
+      right: document.body.style.right,
+      width: document.body.style.width,
+      overflowY: document.body.style.overflowY,
+    };
+    document.body.style.position = "fixed";
+    document.body.style.top = `-${scrollYRef.current}px`;
+    document.body.style.left = "0";
+    document.body.style.right = "0";
+    document.body.style.width = "100%";
+    document.body.style.overflowY = "hidden";
+
+    return () => {
+      // restore
+      document.body.style.position = original.position;
+      document.body.style.top = original.top;
+      document.body.style.left = original.left;
+      document.body.style.right = original.right;
+      document.body.style.width = original.width;
+      document.body.style.overflowY = original.overflowY;
+      window.scrollTo(0, scrollYRef.current);
+    };
+  }, [isOpen]);
+}
+
+function Modal({ isOpen, onClose, children }) {
+  useBodyScrollLock(isOpen);
+
+  // esc to close
+  useEffect(() => {
+    if (!isOpen) return;
+    const onKey = (e) => e.key === "Escape" && onClose?.();
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [isOpen, onClose]);
+
+  if (!isOpen) return null;
+  return (
+    <div
+      className="fixed inset-0 z-50"
+      role="dialog"
+      aria-modal="true"
+    >
+      {/* backdrop */}
+      <div className="absolute inset-0 bg-black/50" onClick={onClose} />
+
+      {/* scroll container (mobile-friendly) */}
+      <div
+        className="
+          relative z-10 flex justify-center
+          min-h-screen min-h-[100svh]
+          p-4 sm:p-6
+          overflow-y-auto overscroll-contain
+        "
+      >
+        {/* panel wrapper so content can scroll if taller than viewport */}
+        <div className="w-full max-w-5xl">{children}</div>
+      </div>
+    </div>
+  );
+}
+
+function ModalPanel({ active, onClose }) {
+  return (
+    <div
+      className="rounded-2xl bg-white shadow-xl border pointer-events-auto"
+      onClick={(e) => e.stopPropagation()}
+    >
+      {/* Header (sticky inside panel for long content) */}
+      <div className="flex items-start justify-between gap-3 p-5 border-b sticky top-0 bg-white/95 backdrop-blur z-10 rounded-t-2xl">
+        <div>
+          <div id="modal-title" className="text-lg md:text-xl font-semibold">
+            {active.title}
+          </div>
+          <div className="text-slate-500 mt-1">
+            {active.client ? `Client: ${active.client} · ${active.industry}` : active.industry}
+          </div>
+        </div>
+        <button className="p-2 rounded-lg hover:bg-slate-100" onClick={onClose} aria-label="Tutup">
+          <X className="h-5 w-5" />
+        </button>
+      </div>
+
+      {/* Body (scrollable area) */}
+      <div className="px-5 pb-5">
+        <div className="mt-5 max-h-[80svh] md:max-h-[85vh] overflow-y-auto pr-1">
+          <div className="grid md:grid-cols-5 gap-6">
+            {/* Media */}
+            <div className="md:col-span-3 space-y-4">
+              <div className="relative rounded-xl overflow-hidden bg-slate-100">
+                {(() => {
+                  const src = active.video || active.thumb;
+                  const isVideo =
+                    typeof src === "string" &&
+                    (src.endsWith(".mp4") || src.endsWith(".webm"));
+                  return isVideo ? (
+                    <video
+                      src={src}
+                      controls
+                      poster={active.thumb}
+                      preload="metadata"
+                      className="w-full bg-black h-[360px] md:h-[520px] object-contain"
+                    />
+                  ) : src.endsWith(".gif") ? (
+                    <img
+                      src={src}
+                      alt="preview"
+                      className="w-full h-[360px] md:h-[520px] object-contain bg-white"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  ) : (
+                    <img
+                      src={active.thumb}
+                      alt="preview"
+                      className="w-full h-[360px] md:h-[520px] object-contain bg-white"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  );
+                })()}
+                <a
+                  href={active.video || active.thumb}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="absolute top-3 right-3 inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-white/90 backdrop-blur border text-xs hover:bg-white"
+                  title="Buka ukuran penuh"
+                >
+                  <Maximize2 className="h-3.5 w-3.5" /> Full view
+                </a>
+              </div>
+
+              {active.results?.length > 0 && (
+                <div className="p-4 bg-indigo-50 rounded-xl text-sm">
+                  <div className="font-semibold mb-1">Hasil & Dampak</div>
+                  <ul className="list-disc ml-5 space-y-1">
+                    {active.results.map((r, i) => (
+                      <li key={i}>{r}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
+
+            {/* Detail */}
+            <div className="md:col-span-2 space-y-4">
+              <DetailBlock title="Problem" text={active.problem} variant="problem" />
+              <DetailBlock title="Objektif" text={active.objective} variant="objective" />
+              <DetailBlock title="Solusi" text={active.solution} variant="solution" />
+              <a
+                className="inline-flex items-center justify-center w-full px-4 py-2 rounded-2xl bg-indigo-600 text-white hover:bg-indigo-700"
+                href={waBase(`Halo, saya tertarik project seperti: ${active.title}. Boleh diskusi scope & timeline?`)}
+              >
+                Diskusikan Proyek Ini
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
