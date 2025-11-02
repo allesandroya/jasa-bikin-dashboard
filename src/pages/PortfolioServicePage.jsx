@@ -23,8 +23,12 @@ import {
   Maximize2,
 } from "lucide-react";
 
-// Jika file ini tidak ada di proyekmu, hapus import di bawah dan pakai ph("...") sebagai pengganti
-// === ASSETS (GIF) ===
+/* ============================
+   ASSETS
+   - thumb = *.jpg (poster hasil FFmpeg)
+   - video = *.gif (atau *.mp4 kalau sudah dikonversi)
+============================= */
+// Excel
 import excel1 from "../assets/Excel1.gif";
 import excel2 from "../assets/Excel2.gif";
 import excel3 from "../assets/Excel3.gif";
@@ -36,13 +40,32 @@ import excel8 from "../assets/Excel8.gif";
 import excel9 from "../assets/Excel9.gif";
 import excel10 from "../assets/Excel10.gif";
 
-import googleSheet1 from "../assets/Googlesheet1.gif";
+import excel1Poster from "../assets/Excel1.jpg";
+import excel2Poster from "../assets/Excel2.jpg";
+import excel3Poster from "../assets/Excel3.jpg";
+import excel4Poster from "../assets/Excel4.jpg";
+import excel5Poster from "../assets/Excel5.jpg";
+import excel6Poster from "../assets/Excel6.jpg";
+import excel7Poster from "../assets/Excel7.jpg";
+import excel8Poster from "../assets/Excel8.jpg";
+import excel9Poster from "../assets/Excel9.jpg";
+import excel10Poster from "../assets/Excel10.jpg";
 
+// Google Sheets
+import googleSheet1 from "../assets/Googlesheet1.gif";
+import googleSheet1Poster from "../assets/Googlesheet1.jpg";
+
+// Looker
 import looker1 from "../assets/Looker1.gif";
 import looker2 from "../assets/Looker2.gif";
+import looker1Poster from "../assets/Looker1.jpg";
+import looker2Poster from "../assets/Looker2.jpg";
 
+// Power BI
 import powerbi1 from "../assets/Powerbi1.gif";
+import powerbi1Poster from "../assets/Powerbi1.jpg";
 
+// Tableau
 import tableau1 from "../assets/Tableau1.gif";
 import tableau2 from "../assets/Tableau2.gif";
 import tableau3 from "../assets/Tableau3.gif";
@@ -52,13 +75,20 @@ import tableau6 from "../assets/Tableau6.gif";
 import tableau7 from "../assets/Tableau7.gif";
 import tableau8 from "../assets/Tableau8.gif";
 
+import tableau1Poster from "../assets/Tableau1.jpg";
+import tableau2Poster from "../assets/Tableau2.jpg";
+import tableau3Poster from "../assets/Tableau3.jpg";
+import tableau4Poster from "../assets/Tableau4.jpg";
+import tableau5Poster from "../assets/Tableau5.jpg";
+import tableau6Poster from "../assets/Tableau6.jpg";
+import tableau7Poster from "../assets/Tableau7.jpg";
+import tableau8Poster from "../assets/Tableau8.jpg";
 
 /* -----------------------------
    Utils
 ------------------------------ */
-const WA_NUMBER = "6281234567890"; // TODO: ganti nomormu (tanpa +)
-const waBase = (msg) =>
-  `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
+const WA_NUMBER = "6281234567890"; // TODO: ganti ke nomormu (tanpa +)
+const waBase = (msg) => `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
 
 const money = (n) =>
   new Intl.NumberFormat("id-ID", {
@@ -67,215 +97,202 @@ const money = (n) =>
     maximumFractionDigits: 0,
   }).format(n);
 
-// Thumbnail placeholder (SVG data URI)
-const ph = (label) =>
-  `data:image/svg+xml;utf8,${encodeURIComponent(
-    `<svg xmlns='http://www.w3.org/2000/svg' width='800' height='500'>
-      <defs>
-        <linearGradient id='g' x1='0' x2='1' y1='0' y2='1'>
-          <stop offset='0%' stop-color='%23eef2ff'/>
-          <stop offset='100%' stop-color='%23e0e7ff'/>
-        </linearGradient>
-      </defs>
-      <rect width='100%' height='100%' fill='url(%23g)'/>
-      <g font-family='Inter,Segoe UI,Arial' fill='%23565' text-anchor='middle'>
-        <text x='50%' y='48%' font-size='28' font-weight='600'>${label}</text>
-        <text x='50%' y='60%' font-size='16'>Preview / Thumbnail</text>
-      </g>
-    </svg>`
-  )}`;
-
 /* -----------------------------
    Data (Portfolio)
 ------------------------------ */
-// === TEMPLATE KALIMAT DEFAULT ===
-const TEMPLATE = {
-  problem:
-    "Data tersebar dan laporan manual memakan waktu. Tim membutuhkan satu sumber kebenaran untuk memantau KPI secara real-time.",
-  objective:
-    "Menyediakan dashboard interaktif yang ringkas, dapat difilter, dan siap presentasi untuk menjawab pertanyaan bisnis harian.",
-  solution:
-    "Bangun model data sederhana, lakukan data cleaning seperlunya, terapkan kalkulasi KPI, dan desain UI sesuai brand.",
-  results: [
-    "Penyusunan laporan lebih cepat & konsisten",
-    "Keputusan lebih data-driven",
-  ],
-};
-
-// === PORTFOLIO CASES (thumb = video = GIF) ===
 const CASES = [
   /* ========== EXCEL ========== */
-
   {
     id: "excel-1",
     title: "Mess Dashboard",
     tool: "Excel",
     industry: "Government / Military",
     tags: ["Occupancy", "Room Allocation", "Check-in/out"],
-    thumb: excel1,
+    featured: true,
+    thumb: excel1Poster,
     video: excel1,
-    problem: `Pengelola mess kesulitan memantau ketersediaan kamar kosong/terisi di tiap area & divisi, termasuk riwayat tanggal/jam check-in–check-out. Data tersebar di file berbeda dan update manual sering terlambat.`,
-    objective: `Menyediakan satu dashboard yang menampilkan okupansi real-time per area & divisi, daftar kamar kosong, serta histori pengisian berbasis tanggal/waktu untuk mempercepat alokasi kamar.`,
-    solution: `Konsolidasi data penghuni & kamar dengan Power Query; tabel kalender untuk tracking waktu; measure okupansi saat ini & tren; slicer area/divisi; indikator kamar kosong dan lama hunian. Layout dibuat mobile-friendly untuk petugas lapangan.`,
+    problem:
+      "Pengelola mess kesulitan memantau ketersediaan kamar kosong/terisi di tiap area & divisi, termasuk riwayat tanggal/jam check-in–check-out. Data tersebar di file berbeda dan update manual sering terlambat.",
+    objective:
+      "Menyediakan satu dashboard yang menampilkan okupansi real-time per area & divisi, daftar kamar kosong, serta histori pengisian berbasis tanggal/waktu untuk mempercepat alokasi kamar.",
+    solution:
+      "Konsolidasi data penghuni & kamar dengan Power Query; tabel kalender untuk tracking waktu; measure okupansi saat ini & tren; slicer area/divisi; indikator kamar kosong dan lama hunian. Layout dibuat mobile-friendly untuk petugas lapangan.",
     results: [
       "Waktu mencari kamar kosong turun drastis (hitungan menit).",
       "Akurasinya naik; double-assign kamar berkurang signifikan.",
       "Proses alokasi antar divisi jadi transparan & audit-able.",
     ],
   },
-
   {
     id: "excel-2",
     title: "Dashboard Monitoring Pelatihan Aplikasi Dokter",
     tool: "Excel",
     industry: "Healthcare",
     tags: ["Training", "Adoption", "Compliance"],
-    thumb: excel2,
+    thumb: excel2Poster,
     video: excel2,
-    problem: `RS/klinik perlu memantau status pelatihan aplikasi untuk para dokter dan jabatannya. Siapa yang sudah lulus pelatihan, aktif menggunakan aplikasi, atau belum memulai—selama ini dilacak manual dan rawan miss.`,
-    objective: `Menyediakan registry terpusat status pelatihan per dokter/jabatan, serta ringkasan adopsi aplikasi (aktif vs belum) per unit/rumah sakit.`,
-    solution: `Power Query menggabungkan data HR & log aplikasi; dashboard dengan slicer jabatan/unit; badge status (Lulus, Aktif, Belum); daftar nama yang belum pelatihan lengkap dengan daftar modul yang harus diambil.`,
+    problem:
+      "RS/klinik perlu memantau status pelatihan aplikasi untuk para dokter dan jabatannya. Siapa yang sudah lulus pelatihan, aktif menggunakan aplikasi, atau belum memulai—selama ini dilacak manual dan rawan miss.",
+    objective:
+      "Menyediakan registry terpusat status pelatihan per dokter/jabatan, serta ringkasan adopsi aplikasi (aktif vs belum) per unit/rumah sakit.",
+    solution:
+      "Power Query menggabungkan data HR & log aplikasi; dashboard dengan slicer jabatan/unit; badge status (Lulus, Aktif, Belum); daftar nama yang belum pelatihan lengkap dengan daftar modul yang harus diambil.",
     results: [
       "Pelaporan kepatuhan pelatihan jadi real-time.",
       "Coverage training meningkat karena follow-up lebih terarah.",
       "Manajemen bisa memetakan kebutuhan refresh training per jabatan.",
     ],
   },
-
   {
     id: "excel-3",
     title: "Stock Inventory Tracker",
     tool: "Excel",
     industry: "Retail / Distribution",
     tags: ["Stock In/Out", "Reorder", "Cashflow"],
-    thumb: excel3,
+    thumb: excel3Poster,
     video: excel3,
-    problem: `Stok masuk/keluar dicatat terpisah sehingga sulit mengetahui saldo stok akhir dan item yang harus segera di-reorder. Selain itu arus kas keluar/masuk untuk pembelian/penjualan tidak terlihat terpadu.`,
-    objective: `Monitoring real-time untuk saldo stok, item low-stock dengan ambang batas reorder, serta ringkasan uang masuk/keluar terkait persediaan.`,
-    solution: `Model pergerakan persediaan (in/out/adjustment), perhitungan saldo bergerak, daftar reorder otomatis, dan recap kas sederhana. Notifikasi warna untuk low-stock & dead-stock.`,
+    problem:
+      "Stok masuk/keluar dicatat terpisah sehingga sulit mengetahui saldo stok akhir dan item yang harus segera di-reorder. Selain itu arus kas keluar/masuk untuk pembelian/penjualan tidak terlihat terpadu.",
+    objective:
+      "Monitoring real-time untuk saldo stok, item low-stock dengan ambang batas reorder, serta ringkasan uang masuk/keluar terkait persediaan.",
+    solution:
+      "Model pergerakan persediaan (in/out/adjustment), perhitungan saldo bergerak, daftar reorder otomatis, dan recap kas sederhana. Notifikasi warna untuk low-stock & dead-stock.",
     results: [
       "Stockout berkurang; pembelian jadi lebih presisi.",
       "Visibilitas cash-flow persediaan meningkat.",
       "Waktu rekap stok bulanan turun signifikan.",
     ],
   },
-
   {
     id: "excel-4",
     title: "Target Sales Tracker",
     tool: "Excel",
     industry: "Sales",
     tags: ["Target vs Actual", "Gantt", "Team Coloring"],
-    thumb: excel4,
+    thumb: excel4Poster,
     video: excel4,
-    problem: `Sulit melihat mana salesperson yang sudah mencapai target tiap bulan dan progress keseluruhan per tim. Visual timeline tidak ada, sehingga koordinasi proyek penjualan kurang jelas.`,
-    objective: `Menampilkan pencapaian target per sales & per bulan dengan visual Gantt dan pewarnaan berbeda per tim agar status cepat terbaca.`,
-    solution: `Model target/actual per bulan, Gantt pseudo-chart di Excel, pewarnaan dinamis per tim, serta kartu KPI ringkas (achievement, gap).`,
+    problem:
+      "Sulit melihat mana salesperson yang sudah mencapai target tiap bulan dan progress keseluruhan per tim. Visual timeline tidak ada, sehingga koordinasi proyek penjualan kurang jelas.",
+    objective:
+      "Menampilkan pencapaian target per sales & per bulan dengan visual Gantt dan pewarnaan berbeda per tim agar status cepat terbaca.",
+    solution:
+      "Model target/actual per bulan, Gantt pseudo-chart di Excel, pewarnaan dinamis per tim, serta kartu KPI ringkas (achievement, gap).",
     results: [
       "Daily stand-up lebih cepat karena visualisasi jelas.",
       "Manager mudah mengidentifikasi sales yang butuh bantuan.",
       "Rate pencapaian target tim meningkat.",
     ],
   },
-
   {
     id: "excel-5",
     title: "Project & Budget Tracker",
     tool: "Excel",
     industry: "PMO / Ops",
     tags: ["Timeline", "Priority", "Budget"],
-    thumb: excel5,
+    thumb: excel5Poster,
     video: excel5,
-    problem: `Proyek berjalan paralel tanpa ringkasan yang rapi: tanggal mulai/selesai, persentase progress, prioritas, dan realisasi anggaran sulit dipantau dalam satu tempat.`,
-    objective: `Menyatukan informasi inti proyek dan halaman khusus budget untuk melihat pemakaian vs alokasi.`,
-    solution: `Tabel proyek (start, end, %progress, priority), kanban/gantt sederhana, halaman budget dengan breakdown kategori & variance, serta filter per PIC/tim.`,
+    problem:
+      "Proyek berjalan paralel tanpa ringkasan yang rapi: tanggal mulai/selesai, persentase progress, prioritas, dan realisasi anggaran sulit dipantau dalam satu tempat.",
+    objective:
+      "Menyatukan informasi inti proyek dan halaman khusus budget untuk melihat pemakaian vs alokasi.",
+    solution:
+      "Tabel proyek (start, end, %progress, priority), kanban/gantt sederhana, halaman budget dengan breakdown kategori & variance, serta filter per PIC/tim.",
     results: [
       "Stakeholder punya single source of truth proyek.",
       "Deteksi potensi over-budget lebih dini.",
       "Rapat koordinasi mingguan lebih ringkas & fokus.",
     ],
   },
-
   {
     id: "excel-6",
     title: "Smartphone Sales Dashboard",
     tool: "Excel",
     industry: "Retail",
     tags: ["Area", "Product Type", "Dynamic Metrics"],
-    thumb: excel6,
+    thumb: excel6Poster,
     video: excel6,
-    problem: `Penjualan smartphone perlu dipantau per area/tipe & tren waktunya. User minta metrik bisa diganti dinamis (Sales, Profit, Total Transaksi, Quantity) tanpa membuat banyak report terpisah.`,
-    objective: `Satu dashboard fleksibel dengan switch metrik yang bisa diganti on-the-fly.`,
-    solution: `Selector metrik (Sales/Profit/Txn/Qty), pivot terhubung, timeseries & breakdown area/tipe, KPI cards, dan conditional formatting untuk outlier.`,
+    problem:
+      "Penjualan smartphone perlu dipantau per area/tipe & tren waktunya. User minta metrik bisa diganti dinamis (Sales, Profit, Total Transaksi, Quantity) tanpa membuat banyak report terpisah.",
+    objective: "Satu dashboard fleksibel dengan switch metrik yang bisa diganti on-the-fly.",
+    solution:
+      "Selector metrik (Sales/Profit/Txn/Qty), pivot terhubung, timeseries & breakdown area/tipe, KPI cards, dan conditional formatting untuk outlier.",
     results: [
       "Analisis cepat tanpa membuat banyak versi file.",
       "Tim bisa fokus ke area/tipe yang paling berdampak.",
       "Perencanaan stok & promosi lebih presisi.",
     ],
   },
-
   {
     id: "excel-7",
     title: "Monitoring Kepatuhan Diklat per Direktorat",
     tool: "Excel",
     industry: "Public Sector / HR",
     tags: ["Training Compliance", "Gap Analysis"],
-    thumb: excel7,
+    thumb: excel7Poster,
     video: excel7,
-    problem: `Perlu memantau karyawan yang sudah/ belum memenuhi diklat per direktorat, dan modul apa saja yang masih kurang.`,
-    objective: `Menyediakan tampilan ringkas daftar karyawan belum memenuhi diklat per direktorat beserta modul yang harus diambil.`,
-    solution: `Match daftar kompetensi per jabatan dengan status diklat; gap-list otomatis per direktorat; filter nama/jabatan; export untuk tindak lanjut HR.`,
+    problem:
+      "Perlu memantau karyawan yang sudah/ belum memenuhi diklat per direktorat, dan modul apa saja yang masih kurang.",
+    objective:
+      "Menyediakan tampilan ringkas daftar karyawan belum memenuhi diklat per direktorat beserta modul yang harus diambil.",
+    solution:
+      "Match daftar kompetensi per jabatan dengan status diklat; gap-list otomatis per direktorat; filter nama/jabatan; export untuk tindak lanjut HR.",
     results: [
       "Kesenjangan kompetensi terlihat jelas per direktorat.",
       "Tindak lanjut training lebih terarah & terukur.",
     ],
   },
-
   {
     id: "excel-8",
     title: "Employee Dashboard (Attrition, HDRF Utilization, PISA)",
     tool: "Excel",
     industry: "HR",
     tags: ["Headcount", "Attrition", "Utilization", "Compliance"],
-    thumb: excel8,
+    thumb: excel8Poster,
     video: excel8,
-    problem: `Manajemen memerlukan pandangan menyeluruh atas headcount saat ini, turnover/attrition, HDRF utilization, dan status PISA submission.`,
-    objective: `Memberi gambaran kondisi tenaga kerja terkini dan indikator kepatuhan/ pemanfaatan program.`,
-    solution: `ETL data HR master + log kepesertaan; KPI attrition & utilization; tren bulanan; segmentasi per unit/grade; indikator submission PISA.`,
+    problem:
+      "Manajemen memerlukan pandangan menyeluruh atas headcount saat ini, turnover/attrition, HDRF utilization, dan status PISA submission.",
+    objective:
+      "Memberi gambaran kondisi tenaga kerja terkini dan indikator kepatuhan/ pemanfaatan program.",
+    solution:
+      "ETL data HR master + log kepesertaan; KPI attrition & utilization; tren bulanan; segmentasi per unit/grade; indikator submission PISA.",
     results: [
       "Visibilitas HR meningkat; diskusi manajemen lebih berbasis data.",
       "Area dengan risiko attrition tinggi cepat terdeteksi.",
     ],
   },
-
   {
     id: "excel-9",
     title: "Project Monitoring + RAID",
     tool: "Excel",
     industry: "PMO / Ops",
     tags: ["Timeline", "RAID", "Issue Tracking"],
-    thumb: excel9,
+    thumb: excel9Poster,
     video: excel9,
-    problem: `Mirip Project & Budget Tracker namun fokus pada kontrol proyek berjalan dan halaman RAID (Risks, Assumptions, Issues, Dependencies) untuk mitigasi.`,
-    objective: `Memusatkan status proyek dan daftar risiko/isu/dependensi untuk mempercepat eskalasi dan keputusan.`,
-    solution: `Ringkasan status & timeline, halaman RAID dengan owner, severity, due date, dan rekomendasi aksi; filter per project/PIC.`,
+    problem:
+      "Mirip Project & Budget Tracker namun fokus pada kontrol proyek berjalan dan halaman RAID (Risks, Assumptions, Issues, Dependencies) untuk mitigasi.",
+    objective:
+      "Memusatkan status proyek dan daftar risiko/isu/dependensi untuk mempercepat eskalasi dan keputusan.",
+    solution:
+      "Ringkasan status & timeline, halaman RAID dengan owner, severity, due date, dan rekomendasi aksi; filter per project/PIC.",
     results: [
       "Mitigasi risiko lebih cepat; blocking issues turun.",
       "Transparansi status proyek meningkat lintas tim.",
     ],
   },
-
   {
     id: "excel-10",
     title: "Transport Management Dashboard",
     tool: "Excel",
     industry: "Logistics",
     tags: ["Tonnage", "Company", "VBA"],
-    thumb: excel10,
+    thumb: excel10Poster,
     video: excel10,
-    problem: `Perlu memantau tonase barang per tanggal dan per perusahaan. User meminta dashboard dapat di-update bulanan sesuai file yang dipilih.`,
-    objective: `Memungkinkan pemilihan file bulanan secara dinamis dan otomatis mengganti sumber data ke dashboard tanpa repot copy-paste.`,
-    solution: `Automasi VBA untuk selector file & refresh query; tabel kalender; visual tonase per tanggal/perusahaan; log update untuk jejak audit.`,
+    problem:
+      "Perlu memantau tonase barang per tanggal dan per perusahaan. User meminta dashboard dapat di-update bulanan sesuai file yang dipilih.",
+    objective:
+      "Memungkinkan pemilihan file bulanan secara dinamis dan otomatis mengganti sumber data ke dashboard tanpa repot copy-paste.",
+    solution:
+      "Automasi VBA untuk selector file & refresh query; tabel kalender; visual tonase per tanggal/perusahaan; log update untuk jejak audit.",
     results: [
       "Update bulanan cukup pilih file → data langsung terganti.",
       "Human error saat copy-paste hilang.",
@@ -284,18 +301,20 @@ const CASES = [
   },
 
   /* ========== GOOGLE SHEETS ========== */
-
   {
     id: "gsheets-1",
     title: "Data Cleaning & Analytics Log (Supermarket)",
     tool: "Google Sheets",
     industry: "Retail",
     tags: ["Doc & Log", "Cleaning Steps", "Analytics"],
-    thumb: googleSheet1,
+    thumb: googleSheet1Poster,
     video: googleSheet1,
-    problem: `Proses pembersihan data & analitik toko tersebar di banyak catatan sehingga sulit ditelusuri step-by-step.`,
-    objective: `Mendokumentasikan pipeline cleaning & eksplorasi analitik (pola penjualan, pola customer, dsb.) dalam satu file yang rapi.`,
-    solution: `Template log cleaning (before/after, rule, contoh), ringkasan insight awal (produk top, customer segment), dan link ke dataset final.`,
+    problem:
+      "Proses pembersihan data & analitik toko tersebar di banyak catatan sehingga sulit ditelusuri step-by-step.",
+    objective:
+      "Mendokumentasikan pipeline cleaning & eksplorasi analitik (pola penjualan, pola customer, dsb.) dalam satu file yang rapi.",
+    solution:
+      "Template log cleaning (before/after, rule, contoh), ringkasan insight awal (produk top, customer segment), dan link ke dataset final.",
     results: [
       "Jejak proses (data lineage) jelas & mudah di-audit.",
       "Transfer pengetahuan ke tim lain jadi cepat.",
@@ -303,35 +322,40 @@ const CASES = [
   },
 
   /* ========== LOOKER STUDIO ========== */
-
   {
     id: "looker-1",
     title: "F&B Chain Performance (CAPEX/OPEX & Sales)",
     tool: "Looker Studio",
     industry: "F&B",
     tags: ["CAPEX", "OPEX", "Sales", "Province/City"],
-    thumb: looker1,
+    featured: true,
+    thumb: looker1Poster,
     video: looker1,
-    problem: `User ingin memantau target penjualan & pengeluaran per kota/provinsi, menemukan pola penyebab pendapatan/biaya tinggi, namun belum ada anggaran BI berbayar.`,
-    objective: `Menyediakan dashboard Looker Studio yang gratis namun powerful untuk monitoring lintas wilayah & kategori biaya.`,
-    solution: `Koneksi ke sumber transaksi + biaya; field kalkulasi (ROAS, margin, rasio biaya); kontrol filter provinsi/kota; komponen target vs actual.`,
+    problem:
+      "User ingin memantau target penjualan & pengeluaran per kota/provinsi, menemukan pola penyebab pendapatan/biaya tinggi, namun belum ada anggaran BI berbayar.",
+    objective:
+      "Menyediakan dashboard Looker Studio yang gratis namun powerful untuk monitoring lintas wilayah & kategori biaya.",
+    solution:
+      "Koneksi ke sumber transaksi + biaya; field kalkulasi (ROAS, margin, rasio biaya); kontrol filter provinsi/kota; komponen target vs actual.",
     results: [
       "Stakeholder bisa evaluasi daerah prioritas tanpa lisensi mahal.",
       "Identifikasi kota ber-OPEX tinggi untuk program efisiensi.",
     ],
   },
-
   {
     id: "looker-2",
     title: "KOL Endorsement Tracker",
     tool: "Looker Studio",
     industry: "Marketing",
     tags: ["Pipeline", "Impact", "Google Theme"],
-    thumb: looker2,
+    thumb: looker2Poster,
     video: looker2,
-    problem: `Manajemen KOL tersebar; sulit memonitor status (belum deal/proses/selesai) dan mengukur dampaknya.`,
-    objective: `Menyediakan pipeline KOL yang jelas dengan indikator impact dan tema warna bergaya Google sesuai permintaan user.`,
-    solution: `Tabel pipeline status + owner, skor impact, timeline aktivitas; filter kategori KOL; palet warna Google untuk konsistensi brand.`,
+    problem:
+      "Manajemen KOL tersebar; sulit memonitor status (belum deal/proses/selesai) dan mengukur dampaknya.",
+    objective:
+      "Menyediakan pipeline KOL yang jelas dengan indikator impact dan tema warna bergaya Google sesuai permintaan user.",
+    solution:
+      "Tabel pipeline status + owner, skor impact, timeline aktivitas; filter kategori KOL; palet warna Google untuk konsistensi brand.",
     results: [
       "Follow-up KOL lebih terstruktur; bottleneck cepat terlihat.",
       "Analisis ROI endorsement lebih mudah dipresentasikan.",
@@ -339,18 +363,21 @@ const CASES = [
   },
 
   /* ========== POWER BI ========== */
-
   {
     id: "powerbi-1",
     title: "Power BI — Store Sales with Discount Simulator",
     tool: "Power BI",
     industry: "Retail",
     tags: ["Parameter", "Geo Map", "What-if"],
-    thumb: powerbi1,
+    featured: true,
+    thumb: powerbi1Poster,
     video: powerbi1,
-    problem: `Perlu memantau penjualan per gerai & mensimulasikan dampak diskon terhadap produk tertentu. Juga ingin melihat persebaran penjualan secara geografis.`,
-    objective: `Memberikan ringkasan penjualan per provinsi/gerai lengkap dengan parameter diskon dan peta interaktif.`,
-    solution: `Model bintang (FactSales, DimDate, DimStore, DimProduct), parameter What-if Discount, kartu KPI & Geo Map, drillthrough per produk/gerai.`,
+    problem:
+      "Perlu memantau penjualan per gerai & mensimulasikan dampak diskon terhadap produk tertentu. Juga ingin melihat persebaran penjualan secara geografis.",
+    objective:
+      "Memberikan ringkasan penjualan per provinsi/gerai lengkap dengan parameter diskon dan peta interaktif.",
+    solution:
+      "Model bintang (FactSales, DimDate, DimStore, DimProduct), parameter What-if Discount, kartu KPI & Geo Map, drillthrough per produk/gerai.",
     results: [
       "Skenario diskon bisa diuji sebelum dijalankan.",
       "Gerai/provinsi prioritas cepat diidentifikasi.",
@@ -358,145 +385,160 @@ const CASES = [
   },
 
   /* ========== TABLEAU ========== */
-
   {
     id: "tableau-1",
     title: "RFM Analysis — Overview",
     tool: "Tableau",
     industry: "E-Commerce / Retail",
     tags: ["RFM", "Segmentation", "Behavior"],
-    thumb: tableau1,
+    featured: true,
+    thumb: tableau1Poster,
     video: tableau1,
-    problem: `Bisnis membutuhkan segmentasi customer berbasis Recency, Frequency, Monetary untuk memahami perilaku & prioritas retensi.`,
-    objective: `Dashboard RFM yang menampilkan persentase tiap segmen, alasan masuk segmen, dan ringkasan perilaku.`,
-    solution: `Perhitungan skor R/F/M, pembentukan segmen, visual komposisi segmen & kontribusi revenue, filter periode & kanal.`,
+    problem:
+      "Bisnis membutuhkan segmentasi customer berbasis Recency, Frequency, Monetary untuk memahami perilaku & prioritas retensi.",
+    objective:
+      "Dashboard RFM yang menampilkan persentase tiap segmen, alasan masuk segmen, dan ringkasan perilaku.",
+    solution:
+      "Perhitungan skor R/F/M, pembentukan segmen, visual komposisi segmen & kontribusi revenue, filter periode & kanal.",
     results: [
       "Strategi retensi & promosi menjadi lebih tepat sasaran.",
       "Customer high-value terdefinisi jelas untuk program loyalti.",
     ],
   },
-
   {
     id: "tableau-2",
     title: "RFM Analysis — Customer Detail",
     tool: "Tableau",
     industry: "E-Commerce / Retail",
     tags: ["RFM Detail", "Customer 360"],
-    thumb: tableau2,
+    thumb: tableau2Poster,
     video: tableau2,
-    problem: `Setelah overview, tim butuh melihat nilai recency/frequency/monetary per customer dan segmen masing-masing.`,
-    objective: `Memberikan tampilan detail per customer lengkap dengan skor & riwayat transaksi.`,
-    solution: `Tabel detail customer dengan R/F/M, filter segmen, link drill ke histori transaksi; export untuk CRM campaign.`,
+    problem:
+      "Setelah overview, tim butuh melihat nilai recency/frequency/monetary per customer dan segmen masing-masing.",
+    objective:
+      "Memberikan tampilan detail per customer lengkap dengan skor & riwayat transaksi.",
+    solution:
+      "Tabel detail customer dengan R/F/M, filter segmen, link drill ke histori transaksi; export untuk CRM campaign.",
     results: [
       "Tim CRM bisa mengeksekusi kampanye yang sangat terarah.",
       "Analisis churn & upsell jadi actionable.",
     ],
   },
-
   {
     id: "tableau-3",
     title: "Monitoring Administrasi Kapal",
     tool: "Tableau",
     industry: "Marine",
     tags: ["Compliance", "Budget Usage"],
-    thumb: tableau3,
+    thumb: tableau3Poster,
     video: tableau3,
-    problem: `Perlu memeriksa kelengkapan administrasi tiap kapal serta anggaran yang sudah terpakai.`,
-    objective: `Menyediakan status kepatuhan administrasi per kapal dan ringkasan biaya terkait.`,
-    solution: `Checklist dokumen per kapal, indikator hijau/merah, rekap biaya per kapal/per periode; filter armada & rute.`,
+    problem:
+      "Perlu memeriksa kelengkapan administrasi tiap kapal serta anggaran yang sudah terpakai.",
+    objective:
+      "Menyediakan status kepatuhan administrasi per kapal dan ringkasan biaya terkait.",
+    solution:
+      "Checklist dokumen per kapal, indikator hijau/merah, rekap biaya per kapal/per periode; filter armada & rute.",
     results: [
       "Temuan dokumen kurang lengkap turun signifikan.",
       "Kontrol biaya per kapal lebih ketat & terdokumentasi.",
     ],
   },
-
   {
     id: "tableau-4",
     title: "Monitoring Status Kapal",
     tool: "Tableau",
     industry: "Marine",
     tags: ["Asset Value", "Destination", "Vendor"],
-    thumb: tableau4,
+    thumb: tableau4Poster,
     video: tableau4,
-    problem: `Manajemen ingin melihat nilai kapal per unit, tujuan, penyedia, serta dinamika anggaran & nilai per bulan.`,
-    objective: `Memberikan pandangan menyeluruh nilai aset & pergerakannya per vendor/tujuan.`,
-    solution: `Model aset kapal, ringkasan nilai/budget bulanan, breakdown per vendor & tujuan, tren nilai, dan indikator penyimpangan.`,
+    problem:
+      "Manajemen ingin melihat nilai kapal per unit, tujuan, penyedia, serta dinamika anggaran & nilai per bulan.",
+    objective:
+      "Memberikan pandangan menyeluruh nilai aset & pergerakannya per vendor/tujuan.",
+    solution:
+      "Model aset kapal, ringkasan nilai/budget bulanan, breakdown per vendor & tujuan, tren nilai, dan indikator penyimpangan.",
     results: [
       "Pengambilan keputusan investasi/maintenance lebih berbasis data.",
       "Variasi nilai per vendor/tujuan lebih mudah dianalisis.",
     ],
   },
-
   {
     id: "tableau-5",
     title: "Smartphone Sales — Summary",
     tool: "Tableau",
     industry: "Retail",
     tags: ["Branch", "Brand", "Type"],
-    thumb: tableau5,
+    thumb: tableau5Poster,
     video: tableau5,
-    problem: `Perlu ringkasan penjualan & pengeluaran smartphone per cabang, merek, tipe, dan jenis.`,
-    objective: `Memberikan gambaran menyeluruh performa penjualan vs biaya untuk evaluasi margin.`,
-    solution: `Model sales & expense, breakdown per cabang/merek/tipe, KPI margin & kontribusi, tren waktu & komparasi cabang.`,
+    problem:
+      "Perlu ringkasan penjualan & pengeluaran smartphone per cabang, merek, tipe, dan jenis.",
+    objective:
+      "Memberikan gambaran menyeluruh performa penjualan vs biaya untuk evaluasi margin.",
+    solution:
+      "Model sales & expense, breakdown per cabang/merek/tipe, KPI margin & kontribusi, tren waktu & komparasi cabang.",
     results: [
       "Cabang low-margin cepat terdeteksi untuk tindakan perbaikan.",
       "Perencanaan stok & promosi makin presisi.",
     ],
   },
-
   {
     id: "tableau-6",
     title: "Financial Development Dashboard",
     tool: "Tableau",
     industry: "Finance",
     tags: ["Dept", "Cost Center", "Revenue", "Expenses"],
-    thumb: tableau6,
+    thumb: tableau6Poster,
     video: tableau6,
-    problem: `Manajemen butuh memantau nilai ekonomi per department, cost centre, revenue & expenses, termasuk tren penjualan.`,
-    objective: `Satu dashboard keuangan komprehensif untuk pemantauan performa & efisiensi biaya.`,
-    solution: `Ringkasan P&L per dept/cost centre, tren revenue & expense, variance vs target, dan drill ke transaksi besar.`,
+    problem:
+      "Manajemen butuh memantau nilai ekonomi per department, cost centre, revenue & expenses, termasuk tren penjualan.",
+    objective:
+      "Satu dashboard keuangan komprehensif untuk pemantauan performa & efisiensi biaya.",
+    solution:
+      "Ringkasan P&L per dept/cost centre, tren revenue & expense, variance vs target, dan drill ke transaksi besar.",
     results: [
       "Identifikasi penghematan biaya lebih cepat.",
       "Kinerja departemen bisa dibandingkan secara objektif.",
     ],
   },
-
   {
     id: "tableau-7",
     title: "KPI Sales Dashboard",
     tool: "Tableau",
     industry: "Sales",
     tags: ["Target vs Actual", "Province", "Agent"],
-    thumb: tableau7,
+    thumb: tableau7Poster,
     video: tableau7,
-    problem: `Perlu memantau target vs actual, revenue per provinsi, dan achievement per agen sales.`,
-    objective: `Memberikan dasbor KPI penjualan yang langsung menyorot pencapaian & deviasi.`,
-    solution: `Kartu KPI, peta provinsi, leaderboard agen, serta filter waktu/produk; highlight gap untuk coaching cepat.`,
+    problem:
+      "Perlu memantau target vs actual, revenue per provinsi, dan achievement per agen sales.",
+    objective:
+      "Memberikan dasbor KPI penjualan yang langsung menyorot pencapaian & deviasi.",
+    solution:
+      "Kartu KPI, peta provinsi, leaderboard agen, serta filter waktu/produk; highlight gap untuk coaching cepat.",
     results: [
       "Fokus pembinaan agen menjadi jelas & berdampak.",
       "Pertumbuhan penjualan lebih konsisten lintas provinsi.",
     ],
   },
-
   {
     id: "tableau-8",
     title: "BPJS Kesehatan — Comprehensive Dashboard",
     tool: "Tableau",
     industry: "Healthcare",
     tags: ["Diagnosis", "Insurance Level", "Premium", "Demography"],
-    thumb: tableau8,
+    thumb: tableau8Poster,
     video: tableau8,
-    problem: `Data BPJS perlu dilihat secara komprehensif: penyakit, level asuransi, premi, biaya per kota, diagnosis, dan demografi pasien.`,
-    objective: `Memberikan pandangan menyeluruh untuk analisis biaya & layanan kesehatan antar wilayah/segmen peserta.`,
-    solution: `Model klaim & peserta, breakdown biaya per kota/diagnosis, demografi pasien, dan indikator utilisasi layanan.`,
+    problem:
+      "Data BPJS perlu dilihat secara komprehensif: penyakit, level asuransi, premi, biaya per kota, diagnosis, dan demografi pasien.",
+    objective:
+      "Memberikan pandangan menyeluruh untuk analisis biaya & layanan kesehatan antar wilayah/segmen peserta.",
+    solution:
+      "Model klaim & peserta, breakdown biaya per kota/diagnosis, demografi pasien, dan indikator utilisasi layanan.",
     results: [
       "Prioritas program kesehatan dapat ditentukan berbasis data.",
       "Biaya tinggi per penyakit/wilayah cepat teridentifikasi.",
     ],
   },
 ];
-
-
 
 /* -----------------------------
    Page
@@ -505,6 +547,7 @@ export default function PortfolioServicePage() {
   const [query, setQuery] = useState("");
   const [toolFilter, setToolFilter] = useState("All");
   const [active, setActive] = useState(null);
+  const [showAll, setShowAll] = useState(false); // tampil 4 featured dulu
 
   const filtered = useMemo(() => {
     const q = query.toLowerCase();
@@ -519,6 +562,13 @@ export default function PortfolioServicePage() {
       return matchTool && matchQ;
     });
   }, [query, toolFilter]);
+
+  const itemsToRender = useMemo(() => {
+    if (showAll) return filtered;
+    const featured = filtered.filter((c) => c.featured);
+    if (featured.length >= 4) return featured.slice(0, 4);
+    return filtered.slice(0, 4);
+  }, [filtered, showAll]);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-indigo-50 to-white text-slate-800">
@@ -622,49 +672,63 @@ export default function PortfolioServicePage() {
                 color="indigo"
               />
             </motion.div>
-
-
           </div>
         </div>
       </section>
 
-      {/* PORTFOLIO */}
+      {/* PORTFOLIO (Featured 4 + toggle) */}
       <section id="portfolio" className="max-w-6xl mx-auto px-4 py-10 md:py-16">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-6">
           <div>
             <h2 className="text-2xl md:text-4xl font-bold">Gallery Portfolio</h2>
             <p className="text-slate-600 mt-2">
-              Klik card untuk baca cerita: problem, objektif, dan solusi. Video/gif preview disediakan.
+              Klik card untuk baca cerita: problem, objektif, dan solusi. Preview dibuat ringan untuk mobile.
             </p>
           </div>
 
-        <div className="flex items-center gap-2">
-          <div className="hidden md:block text-sm text-slate-500">Filter:</div>
-          <Segmented
-            value={toolFilter}
-            onChange={setToolFilter}
-            options={["All", "Excel", "Google Sheets", "Looker Studio", "Power BI", "Tableau"]}
-          />
-          <div className="relative">
-            <Filter className="h-4 w-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
-            <input
-              placeholder="Cari: retail, ROAS, KPI…"
-              className="pl-9 pr-3 py-2 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-indigo-200"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
+          <div className="flex items-center gap-2">
+            <div className="hidden md:block text-sm text-slate-500">Filter:</div>
+            <Segmented
+              value={toolFilter}
+              onChange={(v) => {
+                setToolFilter(v);
+                setShowAll(false); // reset ke featured saat ganti filter
+              }}
+              options={["All", "Excel", "Google Sheets", "Looker Studio", "Power BI", "Tableau"]}
             />
+            <div className="relative">
+              <Filter className="h-4 w-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+              <input
+                placeholder="Cari: retail, ROAS, KPI…"
+                className="pl-9 pr-3 py-2 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-indigo-200"
+                value={query}
+                onChange={(e) => {
+                  setQuery(e.target.value);
+                  setShowAll(true); // saat cari, tampilkan semua
+                }}
+              />
+            </div>
           </div>
         </div>
-        </div>
 
-        <div className="grid md:grid-cols-3 gap-5">
-          {filtered.map((item) => (
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
+          {itemsToRender.map((item) => (
             <motion.div key={item.id} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}>
               <button
                 className="w-full text-left rounded-2xl border bg-white overflow-hidden hover:shadow-md transition"
                 onClick={() => setActive(item)}
+                aria-label={`Lihat detail ${item.title}`}
               >
-                <img src={item.thumb} alt={item.title} className="w-full h-40 object-cover" />
+                <div className="w-full aspect-[16/10] bg-slate-100 overflow-hidden">
+                  <img
+                    src={item.thumb}
+                    alt={item.title}
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                    decoding="async"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  />
+                </div>
                 <div className="p-4">
                   <div className="flex items-center justify-between gap-2">
                     <div className="font-semibold overflow-hidden text-ellipsis whitespace-nowrap">
@@ -678,7 +742,7 @@ export default function PortfolioServicePage() {
                     {item.industry}
                   </div>
                   <div className="mt-2 flex flex-wrap gap-1">
-                    {item.tags.map((tg) => (
+                    {item.tags?.map((tg) => (
                       <span key={tg} className="px-2 py-0.5 text-xs rounded-full border bg-white">
                         {tg}
                       </span>
@@ -691,6 +755,15 @@ export default function PortfolioServicePage() {
               </button>
             </motion.div>
           ))}
+        </div>
+
+        <div className="mt-6 flex justify-center">
+          <button
+            onClick={() => setShowAll((v) => !v)}
+            className="px-4 py-2 rounded-2xl border bg-white hover:bg-slate-50"
+          >
+            {showAll ? "Tampilkan 4 Contoh" : "Lihat Semua Portfolio"}
+          </button>
         </div>
 
         {/* MODAL */}
@@ -711,17 +784,14 @@ export default function PortfolioServicePage() {
                     {active.client ? `Client: ${active.client} · ${active.industry}` : active.industry}
                   </div>
                 </div>
-                <button
-                  className="p-2 rounded-lg hover:bg-slate-100"
-                  onClick={() => setActive(null)}
-                >
+                <button className="p-2 rounded-lg hover:bg-slate-100" onClick={() => setActive(null)}>
                   <X className="h-5 w-5" />
                 </button>
               </div>
 
               {/* Body */}
               <div className="grid md:grid-cols-5 gap-6 mt-5">
-                {/* Media — besar */}
+                {/* Media */}
                 <div className="md:col-span-3 space-y-4">
                   <div className="relative rounded-xl overflow-hidden bg-slate-100">
                     {(() => {
@@ -733,17 +803,29 @@ export default function PortfolioServicePage() {
                         <video
                           src={src}
                           controls
+                          poster={active.thumb}
+                          preload="metadata"
                           className="w-full bg-black h-[360px] md:h-[520px] object-contain"
                         />
-                      ) : (
+                      ) : src.endsWith(".gif") ? (
+                        // GIF ditampilkan sebagai <img> (lebih ringan saat pause)
                         <img
                           src={src}
                           alt="preview"
                           className="w-full h-[360px] md:h-[520px] object-contain bg-white"
+                          loading="lazy"
+                          decoding="async"
+                        />
+                      ) : (
+                        <img
+                          src={active.thumb}
+                          alt="preview"
+                          className="w-full h-[360px] md:h-[520px] object-contain bg-white"
+                          loading="lazy"
+                          decoding="async"
                         />
                       );
                     })()}
-                    {/* Full view */}
                     <a
                       href={active.video || active.thumb}
                       target="_blank"
@@ -767,16 +849,14 @@ export default function PortfolioServicePage() {
                   )}
                 </div>
 
-                {/* Detail — mencolok */}
+                {/* Detail */}
                 <div className="md:col-span-2 space-y-4">
-                  <DetailBlock title="Problem"   text={active.problem}  variant="problem" />
-                  <DetailBlock title="Objektif"  text={active.objective} variant="objective" />
-                  <DetailBlock title="Solusi"    text={active.solution}  variant="solution" />
+                  <DetailBlock title="Problem" text={active.problem} variant="problem" />
+                  <DetailBlock title="Objektif" text={active.objective} variant="objective" />
+                  <DetailBlock title="Solusi" text={active.solution} variant="solution" />
                   <a
                     className="inline-flex items-center justify-center w-full px-4 py-2 rounded-2xl bg-indigo-600 text-white hover:bg-indigo-700"
-                    href={waBase(
-                      `Halo, saya tertarik project seperti: ${active.title}. Boleh diskusi scope & timeline?`
-                    )}
+                    href={waBase(`Halo, saya tertarik project seperti: ${active.title}. Boleh diskusi scope & timeline?`)}
                   >
                     Diskusikan Proyek Ini
                   </a>
@@ -848,9 +928,7 @@ export default function PortfolioServicePage() {
         <div className="text-center mt-10">
           <a
             className="inline-flex items-center px-5 py-3 rounded-2xl bg-indigo-600 text-white hover:bg-indigo-700"
-            href={waBase(
-              "Halo, saya ingin konsultasi paket yang paling cocok dengan kebutuhan saya."
-            )}
+            href={waBase("Halo, saya ingin konsultasi paket yang paling cocok dengan kebutuhan saya.")}
           >
             Tanya Paket yang Cocok
           </a>
@@ -881,7 +959,7 @@ export default function PortfolioServicePage() {
         </div>
       </section>
 
-      {/* TOOLS COMPARE (dipindah dari hero) */}
+      {/* TOOLS COMPARE */}
       <section id="tools" className="max-w-6xl mx-auto px-4 py-10 md:py-16">
         <div className="text-center mb-6">
           <h2 className="text-2xl md:text-4xl font-bold">Perbedaan Tools (Singkat)</h2>
@@ -898,7 +976,7 @@ export default function PortfolioServicePage() {
             classes={{
               container: "bg-emerald-50 border-emerald-200",
               title: "text-emerald-800",
-              pill: "bg-emerald-100 text-emerald-800"
+              pill: "bg-emerald-100 text-emerald-800",
             }}
           />
 
@@ -911,7 +989,7 @@ export default function PortfolioServicePage() {
             classes={{
               container: "bg-sky-50 border-sky-200",
               title: "text-sky-900",
-              pill: "bg-sky-100 text-sky-800"
+              pill: "bg-sky-100 text-sky-800",
             }}
           />
 
@@ -924,7 +1002,7 @@ export default function PortfolioServicePage() {
             classes={{
               container: "bg-amber-50 border-amber-200",
               title: "text-amber-900",
-              pill: "bg-amber-100 text-amber-900"
+              pill: "bg-amber-100 text-amber-900",
             }}
           />
 
@@ -937,12 +1015,11 @@ export default function PortfolioServicePage() {
             classes={{
               container: "bg-indigo-50 border-indigo-200",
               title: "text-indigo-900",
-              pill: "bg-indigo-100 text-indigo-900"
+              pill: "bg-indigo-100 text-indigo-900",
             }}
           />
         </div>
       </section>
-
 
       {/* FAQ */}
       <section id="faq" className="max-w-6xl mx-auto px-4 py-10 md:py-16">
@@ -997,17 +1074,6 @@ export default function PortfolioServicePage() {
 /* -----------------------------
    Small components
 ------------------------------ */
-function SimpleCard({ title, children }) {
-  return (
-    <div className="rounded-2xl border bg-white shadow-sm">
-      <div className="px-4 pt-4 pb-2 font-semibold flex items-center gap-2 text-base">
-        {title}
-      </div>
-      <div className="p-4">{children}</div>
-    </div>
-  );
-}
-
 function PriceCard({ title, price, bullets, ctaMsg, accent = false }) {
   return (
     <div
@@ -1095,9 +1161,9 @@ function ToolCard({ icon, title, bestFor, pros = [], cons = [], classes }) {
 function NeedCard({ icon, title, line1, line2, color = "emerald" }) {
   const map = {
     emerald: { border: "border-emerald-200", title: "text-emerald-800", pill: "bg-emerald-100 text-emerald-800" },
-    sky:     { border: "border-sky-200",     title: "text-sky-900",     pill: "bg-sky-100 text-sky-800" },
-    amber:   { border: "border-amber-200",   title: "text-amber-900",   pill: "bg-amber-100 text-amber-900" },
-    indigo:  { border: "border-indigo-200",  title: "text-indigo-900",  pill: "bg-indigo-100 text-indigo-900" },
+    sky: { border: "border-sky-200", title: "text-sky-900", pill: "bg-sky-100 text-sky-800" },
+    amber: { border: "border-amber-200", title: "text-amber-900", pill: "bg-amber-100 text-amber-900" },
+    indigo: { border: "border-indigo-200", title: "text-indigo-900", pill: "bg-indigo-100 text-indigo-900" },
   };
   const c = map[color] || map.emerald;
 
@@ -1113,14 +1179,13 @@ function NeedCard({ icon, title, line1, line2, color = "emerald" }) {
   );
 }
 
-
 function DetailBlock({ title, text, variant = "info" }) {
   if (!text) return null;
   const map = {
-    problem:   { bg: "bg-rose-50",    border: "border-rose-200",    text: "text-rose-900",    Icon: AlertTriangle },
-    objective: { bg: "bg-indigo-50",  border: "border-indigo-200",  text: "text-indigo-900",  Icon: Target },
-    solution:  { bg: "bg-emerald-50", border: "border-emerald-200", text: "text-emerald-900", Icon: Wrench },
-    info:      { bg: "bg-slate-50",   border: "border-slate-200",   text: "text-slate-900",   Icon: Info },
+    problem: { bg: "bg-rose-50", border: "border-rose-200", text: "text-rose-900", Icon: AlertTriangle },
+    objective: { bg: "bg-indigo-50", border: "border-indigo-200", text: "text-indigo-900", Icon: Target },
+    solution: { bg: "bg-emerald-50", border: "border-emerald-200", text: "text-emerald-900", Icon: Wrench },
+    info: { bg: "bg-slate-50", border: "border-slate-200", text: "text-slate-900", Icon: Info },
   };
   const { bg, border, text: txt, Icon } = map[variant] || map.info;
   return (
@@ -1128,9 +1193,7 @@ function DetailBlock({ title, text, variant = "info" }) {
       <div className={`flex items-center gap-2 font-semibold ${txt}`}>
         <Icon className="h-4 w-4" /> {title}
       </div>
-      <div className="text-sm text-slate-700 mt-1 whitespace-pre-line leading-relaxed">
-        {text}
-      </div>
+      <div className="text-sm text-slate-700 mt-1 whitespace-pre-line leading-relaxed">{text}</div>
     </div>
   );
 }
