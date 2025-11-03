@@ -358,7 +358,7 @@ export default function PortfolioServicePage() {
                 icon={<MonitorSmartphone className="h-5 w-5" />}
                 title="Looker Studio"
                 line1="Cepat, gratis, share via link."
-                line2="Ideal untuk GA4/Ads & marketing."
+                line2="Dashboard online gratis tanpa ribet."
                 color="sky"
               />
               <NeedCard
