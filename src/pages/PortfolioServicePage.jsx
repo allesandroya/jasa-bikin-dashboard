@@ -257,7 +257,7 @@ export default function PortfolioServicePage() {
   const [filter, setFilter] = useState("All");
   const [q, setQ] = useState("");
   const [active, setActive] = useState(null);
-  const [showAll, setShowAll] = useState(true); // langsung tampil semua
+  const [showAll, setShowAll] = useState(false); // tampil 4
 
   const filtered = useMemo(() => {
     const qq = q.toLowerCase();
@@ -480,7 +480,7 @@ export default function PortfolioServicePage() {
         <h3 className="text-lg font-semibold mb-3">Paket Sheets (Excel / Google Sheets)</h3>
         <div className="grid md:grid-cols-2 gap-6 items-stretch">
           <PriceCard
-            title="Premium — Sheets"
+            title="Dashboard Premium - Sheets"
             price={700_000}
             bullets={[
               "Data sudah rapi (cleaning minimal)",
@@ -492,7 +492,7 @@ export default function PortfolioServicePage() {
             ctaMsg="hi kak, mau tanya-tanya tentang paket dashboard premium excel/sheets nih 🙌"
           />
           <PriceCard
-            title="Pro — Sheets"
+            title="Dashboard Pro - Sheets"
             price={1_500_000}
             accent
             bullets={[
@@ -509,7 +509,7 @@ export default function PortfolioServicePage() {
         <h3 className="text-lg font-semibold mt-10 mb-3">Paket BI (Looker / Power BI / Tableau)</h3>
         <div className="grid md:grid-cols-2 gap-6 items-stretch">
           <PriceCard
-            title="Premium — BI"
+            title="Dashboard Premium - Business Intelligence"
             price={1_000_000}
             bullets={[
               "Data sudah rapi (cleaning minimal)",
@@ -521,7 +521,7 @@ export default function PortfolioServicePage() {
             ctaMsg="hi kak, mau tanya-tanya tentang paket dashboard premium BI (Looker/Power BI/Tableau) nih 🙌"
           />
           <PriceCard
-            title="Pro — BI"
+            title="Dashboard Pro - Business Intelligence"
             price={1_800_000}
             accent
             bullets={[
@@ -558,12 +558,12 @@ export default function PortfolioServicePage() {
           <StepCard n={2} t="Deal" d="Klien setuju dengan harga & melakukan DP. Kami kunci scope & timeline." />
           <StepCard
             n={3}
-            t="Build"
-            d="Proses ETL/cleaning, modeling, desain UI sesuai tema/request. Progress update rutin."
+            t="Build Process"
+            d="Kami proses ETL/cleaning data, modeling, desain UI sesuai tema/request."
           />
           <StepCard n={4} t="Handover" d="Review, revisi, dokumentasi singkat, dan serah terima." />
         </div>
-      </section>
+      </section>  
 
       {/* FAQ */}
       <section id="faq" className="max-w-6xl mx-auto px-4 py-10 md:py-16">
@@ -575,9 +575,9 @@ export default function PortfolioServicePage() {
               <Faq q="Apa saja yang saya dapat?" a="File dashboard final, dokumentasi singkat, dan support minor 7 hari." />
               <Faq
                 q="Bedanya Premium vs Pro?"
-                a="Premium: data relatif rapi & skenario sederhana. Pro: ETL/modeling & kalkulasi lebih kompleks, halaman bisa >2. Kualitas desain & proses tetap sama bagusnya."
+                a="Premium: kami hanya cleaning data minimal. Pro: ETL/modeling & kalkulasi lebih kompleks, halaman bisa >2. Kualitas desain & proses tetap sama bagusnya."
               />
-              <Faq q="Apakah bisa NDA?" a="Bisa. Kami siap NDA atau masking data sensitif." />
+              <Faq q="Apakah bisa NDA?" a="Bisa. Kami siap tanda tangan NDA jika diperlukan." />
             </div>
           </div>
           <div>
@@ -756,9 +756,13 @@ function PriceCard({ title, price, bullets, ctaMsg, accent = false }) {
           </li>
         ))}
       </ul>
-      <a className="mt-auto inline-flex items-center justify-center w-full px-4 py-2 rounded-2xl bg-indigo-600 text-white hover:bg-indigo-700" href={wa(ctaMsg)}>
+      <a
+        className="mt-6 inline-flex items-center justify-center w-full px-4 py-2 rounded-2xl bg-indigo-600 text-white hover:bg-indigo-700"
+        href={wa(ctaMsg)}
+      >
         Pesan via WhatsApp
       </a>
+
     </div>
   );
 }
