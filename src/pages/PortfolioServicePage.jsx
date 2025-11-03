@@ -565,6 +565,94 @@ export default function PortfolioServicePage() {
         </div>
       </section>  
 
+      {/* COMPARISON SECTION — Perbedaan Tiap Tools */}
+      <section id="tools-diff" className="max-w-6xl mx-auto px-4 py-10 md:py-16">
+        <div className="text-center mb-8">
+          <h2 className="text-2xl md:text-4xl font-bold">Perbedaan Tiap Tools</h2>
+          <p className="text-slate-600 mt-2 max-w-2xl mx-auto">
+            Pilih tools sesuai kebutuhan dan skala datamu. Berikut perbandingan singkat dari masing-masing platform.
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {/* Excel / Sheets */}
+          <div className="rounded-2xl border border-emerald-200 bg-emerald-50 p-5 flex flex-col">
+            <div className="flex items-center gap-2 mb-3 text-emerald-800 font-semibold">
+              <FileSpreadsheet className="h-5 w-5" /> Excel / Sheets
+            </div>
+            <p className="text-sm text-slate-800 font-medium">Cocok untuk:</p>
+            <p className="text-sm text-slate-700 mb-2">Operasional cepat & template kustom.</p>
+            <p className="text-sm font-semibold text-emerald-800">Kelebihan</p>
+            <ul className="text-sm text-slate-700 list-disc ml-5 mb-2">
+              <li>Biaya rendah & familiar</li>
+              <li>Sangat fleksibel, bisa offline</li>
+            </ul>
+            <p className="text-sm font-semibold text-emerald-800">Kekurangan</p>
+            <ul className="text-sm text-slate-700 list-disc ml-5">
+              <li>Skalabilitas terbatas</li>
+              <li>Kolaborasi manual & bisa berantakan</li>
+            </ul>
+          </div>
+
+          {/* Looker Studio */}
+          <div className="rounded-2xl border border-sky-200 bg-sky-50 p-5 flex flex-col">
+            <div className="flex items-center gap-2 mb-3 text-sky-800 font-semibold">
+              <MonitorSmartphone className="h-5 w-5" /> Looker Studio
+            </div>
+            <p className="text-sm text-slate-800 font-medium">Cocok untuk:</p>
+            <p className="text-sm text-slate-700 mb-2">Kebutuhan simple, ga butuh instalasi/lisensi, share via link.</p>
+            <p className="text-sm font-semibold text-sky-800">Kelebihan</p>
+            <ul className="text-sm text-slate-700 list-disc ml-5 mb-2">
+              <li>Gratis & cepat konek</li>
+              <li>Mudah di-share ke publik</li>
+            </ul>
+            <p className="text-sm font-semibold text-sky-800">Kekurangan</p>
+            <ul className="text-sm text-slate-700 list-disc ml-5">
+              <li>Modeling terbatas</li>
+              <li>Quota/limit data tertentu</li>
+            </ul>
+          </div>
+
+          {/* Power BI */}
+          <div className="rounded-2xl border border-amber-200 bg-amber-50 p-5 flex flex-col">
+            <div className="flex items-center gap-2 mb-3 text-amber-800 font-semibold">
+              <BarChart3 className="h-5 w-5" /> Power BI
+            </div>
+            <p className="text-sm text-slate-800 font-medium">Cocok untuk:</p>
+            <p className="text-sm text-slate-700 mb-2">Enterprise modeling, DAX, dan RLS.</p>
+            <p className="text-sm font-semibold text-amber-800">Kelebihan</p>
+            <ul className="text-sm text-slate-700 list-disc ml-5 mb-2">
+              <li>Performa tinggi untuk data besar</li>
+              <li>RLS & governance kuat</li>
+            </ul>
+            <p className="text-sm font-semibold text-amber-800">Kekurangan</p>
+            <ul className="text-sm text-slate-700 list-disc ml-5">
+              <li>Butuh email kantor & lisensi Pro/Premium jika mau online</li>
+            </ul>
+          </div>
+
+          {/* Tableau */}
+          <div className="rounded-2xl border border-indigo-200 bg-indigo-50 p-5 flex flex-col">
+            <div className="flex items-center gap-2 mb-3 text-indigo-800 font-semibold">
+              <LineChart className="h-5 w-5" /> Tableau
+            </div>
+            <p className="text-sm text-slate-800 font-medium">Cocok untuk:</p>
+            <p className="text-sm text-slate-700 mb-2">Visual storytelling & eksplorasi data.</p>
+            <p className="text-sm font-semibold text-indigo-800">Kelebihan</p>
+            <ul className="text-sm text-slate-700 list-disc ml-5 mb-2">
+              <li>Visual kelas atas</li>
+              <li>Prototyping interaktif cepat</li>
+            </ul>
+            <p className="text-sm font-semibold text-indigo-800">Kekurangan</p>
+            <ul className="text-sm text-slate-700 list-disc ml-5">
+              <li>Harga lisensi cukup mahal</li>
+              <li>Butuh data yang lebih rapi</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+
       {/* FAQ */}
       <section id="faq" className="max-w-6xl mx-auto px-4 py-10 md:py-16">
         <div className="grid md:grid-cols-2 gap-8">
