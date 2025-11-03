@@ -509,7 +509,7 @@ export default function PortfolioServicePage() {
         <h3 className="text-lg font-semibold mt-10 mb-3">Paket BI (Looker / Power BI / Tableau)</h3>
         <div className="grid md:grid-cols-2 gap-6 items-stretch">
           <PriceCard
-            title="Dashboard Premium - Business Intelligence"
+            title="Dashboard Premium - BI Tools"
             price={1_000_000}
             bullets={[
               "Data sudah rapi (cleaning minimal)",
@@ -521,8 +521,8 @@ export default function PortfolioServicePage() {
             ctaMsg="hi kak, mau tanya-tanya tentang paket dashboard premium BI (Looker/Power BI/Tableau) nih 🙌"
           />
           <PriceCard
-            title="Dashboard Pro - Business Intelligence"
-            price={1_800_000}
+            title="Dashboard Pro - BI Tools"
+            price={2_000_000}
             accent
             bullets={[
               "Butuh cleaning/modeling/DAX/kalkulasi kompleks",
