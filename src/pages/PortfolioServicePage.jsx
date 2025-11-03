@@ -636,7 +636,7 @@ export default function PortfolioServicePage() {
             onClick={() => setShowAll((v) => !v)}
             className="px-4 py-2 rounded-2xl border bg-white hover:bg-slate-50"
           >
-            {showAll ? "Tampilkan 4 Contoh" : "Lihat Semua Portfolio"}
+            {showAll ? "Tampilkan Lebih Sedikit" : "Lihat Semua Portfolio"}
           </button>
         </div>
 
