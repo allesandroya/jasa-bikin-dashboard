@@ -1,135 +1,285 @@
-import React, { useMemo, useRef, useState, useEffect } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import {
-  BarChart3,
-  LineChart,
-  Database,
-  Settings2,
-  Palette,
-  Clock3,
-  FileSpreadsheet,
-  MonitorSmartphone,
-  Gauge,
-  CheckCircle2,
-  ChevronRight,
-  ArrowRight,
-  Star,
-  Filter,
-  X,
-  Info,
-  AlertTriangle,
-  Target,
-  Wrench,
-  Maximize2,
+  Gauge, Database, Settings2, Palette, Clock3, ArrowRight, CheckCircle2, ChevronRight,
+  FileSpreadsheet, MonitorSmartphone, BarChart3, LineChart, Filter, X, Maximize2,
+  Info, AlertTriangle, Target, Wrench, Star
 } from "lucide-react";
 
 /* ============================
-   ASSETS (GIF + Poster JPG)
+   KONFIG WHATSAPP
+============================= */
+const WA_NUMBER = "6285155155285";
+const wa = (msg) => `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
+const rupiah = (n) =>
+  new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", maximumFractionDigits: 0 }).format(n);
+
+/* ============================
+   ASSETS (pakai poster jpg utk list, gif utk detail)
+   — biar ringan di list (mobile), gif diputar di modal
 ============================= */
 // Excel
-import excel1 from "../assets/Excel1.gif";
-import excel2 from "../assets/Excel2.gif";
-import excel3 from "../assets/Excel3.gif";
-import excel4 from "../assets/Excel4.gif";
-import excel5 from "../assets/Excel5.gif";
-import excel6 from "../assets/Excel6.gif";
-import excel7 from "../assets/Excel7.gif";
-import excel8 from "../assets/Excel8.gif";
-import excel9 from "../assets/Excel9.gif";
-import excel10 from "../assets/Excel10.gif";
-
-import excel1Poster from "../assets/Excel1.jpg";
-import excel2Poster from "../assets/Excel2.jpg";
-import excel3Poster from "../assets/Excel3.jpg";
-import excel4Poster from "../assets/Excel4.jpg";
-import excel5Poster from "../assets/Excel5.jpg";
-import excel6Poster from "../assets/Excel6.jpg";
-import excel7Poster from "../assets/Excel7.jpg";
-import excel8Poster from "../assets/Excel8.jpg";
-import excel9Poster from "../assets/Excel9.jpg";
-import excel10Poster from "../assets/Excel10.jpg";
-
+import excel1_gif from "../assets/Excel1.gif";     import excel1_jpg from "../assets/Excel1.jpg";
+import excel2_gif from "../assets/Excel2.gif";     import excel2_jpg from "../assets/Excel2.jpg";
+import excel3_gif from "../assets/Excel3.gif";     import excel3_jpg from "../assets/Excel3.jpg";
+import excel4_gif from "../assets/Excel4.gif";     import excel4_jpg from "../assets/Excel4.jpg";
+import excel5_gif from "../assets/Excel5.gif";     import excel5_jpg from "../assets/Excel5.jpg";
+import excel6_gif from "../assets/Excel6.gif";     import excel6_jpg from "../assets/Excel6.jpg";
+import excel7_gif from "../assets/Excel7.gif";     import excel7_jpg from "../assets/Excel7.jpg";
+import excel8_gif from "../assets/Excel8.gif";     import excel8_jpg from "../assets/Excel8.jpg";
+import excel9_gif from "../assets/Excel9.gif";     import excel9_jpg from "../assets/Excel9.jpg";
+import excel10_gif from "../assets/Excel10.gif";   import excel10_jpg from "../assets/Excel10.jpg";
 // Google Sheets
-import googleSheet1 from "../assets/Googlesheet1.gif";
-import googleSheet1Poster from "../assets/Googlesheet1.jpg";
-
+import gs1_gif from "../assets/Googlesheet1.gif";  import gs1_jpg from "../assets/Googlesheet1.jpg";
 // Looker
-import looker1 from "../assets/Looker1.gif";
-import looker2 from "../assets/Looker2.gif";
-import looker1Poster from "../assets/Looker1.jpg";
-import looker2Poster from "../assets/Looker2.jpg";
-
+import look1_gif from "../assets/Looker1.gif";     import look1_jpg from "../assets/Looker1.jpg";
+import look2_gif from "../assets/Looker2.gif";     import look2_jpg from "../assets/Looker2.jpg";
 // Power BI
-import powerbi1 from "../assets/Powerbi1.gif";
-import powerbi1Poster from "../assets/Powerbi1.jpg";
-
+import pbi1_gif from "../assets/Powerbi1.gif";     import pbi1_jpg from "../assets/Powerbi1.jpg";
 // Tableau
-import tableau1 from "../assets/Tableau1.gif";
-import tableau2 from "../assets/Tableau2.gif";
-import tableau3 from "../assets/Tableau3.gif";
-import tableau4 from "../assets/Tableau4.gif";
-import tableau5 from "../assets/Tableau5.gif";
-import tableau6 from "../assets/Tableau6.gif";
-import tableau7 from "../assets/Tableau7.gif";
-import tableau8 from "../assets/Tableau8.gif";
+import tab1_gif from "../assets/Tableau1.gif";     import tab1_jpg from "../assets/Tableau1.jpg";
+import tab2_gif from "../assets/Tableau2.gif";     import tab2_jpg from "../assets/Tableau2.jpg";
+import tab3_gif from "../assets/Tableau3.gif";     import tab3_jpg from "../assets/Tableau3.jpg";
+import tab4_gif from "../assets/Tableau4.gif";     import tab4_jpg from "../assets/Tableau4.jpg";
+import tab5_gif from "../assets/Tableau5.gif";     import tab5_jpg from "../assets/Tableau5.jpg";
+import tab6_gif from "../assets/Tableau6.gif";     import tab6_jpg from "../assets/Tableau6.jpg";
+import tab7_gif from "../assets/Tableau7.gif";     import tab7_jpg from "../assets/Tableau7.jpg";
+import tab8_gif from "../assets/Tableau8.gif";     import tab8_jpg from "../assets/Tableau8.jpg";
 
-import tableau1Poster from "../assets/Tableau1.jpg";
-import tableau2Poster from "../assets/Tableau2.jpg";
-import tableau3Poster from "../assets/Tableau3.jpg";
-import tableau4Poster from "../assets/Tableau4.jpg";
-import tableau5Poster from "../assets/Tableau5.jpg";
-import tableau6Poster from "../assets/Tableau6.jpg";
-import tableau7Poster from "../assets/Tableau7.jpg";
-import tableau8Poster from "../assets/Tableau8.jpg";
-
-/* -----------------------------
-   Utils
------------------------------- */
-const WA_NUMBER = "6285155155285";
-const waBase = (msg) => `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
-const money = (n) =>
-  new Intl.NumberFormat("id-ID", {
-    style: "currency",
-    currency: "IDR",
-    maximumFractionDigits: 0,
-  }).format(n);
-
-/* -----------------------------
-   Data (Portfolio) — (dipangkas utk singkat)
-   NOTE: tetap gunakan daftar CASES dari versi sebelumnya.
------------------------------- */
+/* ============================
+   DATA PORTFOLIO
+   (cukup 12 contoh; bisa tambah bebas, struktur sama)
+============================= */
 const CASES = [
-  // … (gunakan CASES lengkap dari versi sebelumnya yang sudah OK)
+  {
+    id: "c-ex1",
+    title: "Mess Dashboard",
+    client: "Government / Military",
+    tool: "Excel",
+    industry: "Occupancy / Room Allocation",
+    tags: ["Occupancy", "Room Allocation", "Check-in/out"],
+    thumb: excel1_jpg,
+    video: excel1_gif,
+    featured: true,
+    problem:
+      "Pengelola mess kesulitan memantau kamar kosong/terisi per area & divisi termasuk riwayat tanggal/jam check-in–out. Data tersebar & update manual.",
+    objective:
+      "Satu dashboard yang menampilkan okupansi real-time per area & divisi, daftar kamar kosong, dan histori pengisian berbasis tanggal/waktu.",
+    solution:
+      "Model data sederhana + Excel (Pivot/Power Query) untuk konsolidasi & visual okupansi. UI dibuat clean sesuai tema institusi.",
+    results: [
+      "Waktu mencari kamar kosong turun drastis (menit).",
+      "Akurasi naik; double-assign kamar berkurang signifikan.",
+      "Proses alokasi antar divisi jadi transparan & audit-able.",
+    ],
+  },
+  {
+    id: "c-ex2",
+    title: "Pelatihan Aplikasi Dokter",
+    client: "Hospital",
+    tool: "Excel",
+    industry: "Training / Adoption",
+    tags: ["Pelatihan", "Adopsi Aplikasi"],
+    thumb: excel2_jpg,
+    video: excel2_gif,
+    problem:
+      "Manajemen butuh memantau dokter & jabatan yang sudah pelatihan dan aktif menggunakan aplikasi maupun yang belum.",
+    objective:
+      "Monitoring progres pelatihan & adoption rate per dokter/jabatan, lengkap dengan status aktif/tidak aktif.",
+    solution:
+      "Power Query untuk cleaning data kehadiran/penggunaan, pivot tracking status, KPI adoption & sertifikasi.",
+    results: ["Celah pelatihan cepat teridentifikasi", "Adoption rate meningkat"],
+  },
+  {
+    id: "c-ex3",
+    title: "Stock Inventory Tracker",
+    client: "Retail",
+    tool: "Excel",
+    industry: "Warehouse",
+    tags: ["Reorder", "Cashflow"],
+    thumb: excel3_jpg,
+    video: excel3_gif,
+    featured: true,
+    problem:
+      "Sulit memantau stok masuk/keluar, kapan harus restock, & arus kas terkait pembelian/penjualan.",
+    objective:
+      "Tracking stok & reorder point, serta arus uang masuk/keluar sederhana untuk kontrol.",
+    solution:
+      "Excel modeling (safety stock, reorder) + dashboard ringkas untuk alert restock.",
+    results: ["Stockout menurun", "Perencanaan pembelian lebih presisi"],
+  },
+  {
+    id: "c-ex6",
+    title: "Smartphone Sales Dashboard",
+    client: "Retail Gadget",
+    tool: "Excel",
+    industry: "Sales",
+    tags: ["Time series", "Dynamic metric"],
+    thumb: excel6_jpg,
+    video: excel6_gif,
+    problem: "User ingin mengganti metrik (sales, profit, transaksi, qty) secara dinamis.",
+    objective: "Analisis penjualan per area, tipe, & time series; metrik switchable.",
+    solution: "Parameter + formula & Pivot untuk metrik dinamis; UI ringan.",
+    results: ["Analisis fleksibel & cepat"],
+  },
+  {
+    id: "c-ex10",
+    title: "Transport Management (VBA)",
+    client: "Logistics",
+    tool: "Excel",
+    industry: "Transport",
+    tags: ["Tonnage", "VBA"],
+    thumb: excel10_jpg,
+    video: excel10_gif,
+    problem:
+      "Update data bulanan manual lambat; butuh pilih file dan refresh otomatis.",
+    objective:
+      "Dashboard tonase per tanggal/perusahaan yang bisa update file bulanan secara dinamis.",
+    solution: "VBA untuk pemilihan file & refresh; Query & pivot untuk visual.",
+    results: ["Update cepat, human error menurun"],
+  },
+  {
+    id: "c-gs1",
+    title: "Data Cleaning & Analytics Doc",
+    client: "Supermarket",
+    tool: "Google Sheets",
+    industry: "Analytics",
+    tags: ["Documentation", "Cleaning"],
+    thumb: gs1_jpg,
+    video: gs1_gif,
+    problem: "Dokumentasi proses cleaning & insight toko belum rapi.",
+    objective: "Dok report untuk pola penjualan & customer.",
+    solution: "Template doc + sheet cleaning log; insight ringkas.",
+    results: ["Proses data reproducible"],
+  },
+  {
+    id: "c-look1",
+    title: "FnB Store Performance",
+    client: "F&B",
+    tool: "Looker Studio",
+    industry: "Sales / Finance",
+    tags: ["CAPEX", "OPEX", "Geo"],
+    thumb: look1_jpg,
+    video: look1_gif,
+    featured: true,
+    problem:
+      "Owner ingin pantau target penjualan & pengeluaran per kota/provinsi tanpa biaya lisensi BI.",
+    objective:
+      "Dashboard marketing/finance cepat, mudah dishare.",
+    solution:
+      "Looker Studio (gratis) + GA4/Ads + spreadsheet; visual geo & KPI.",
+    results: ["Akses mudah lintas cabang", "Share link praktis"],
+  },
+  {
+    id: "c-look2",
+    title: "KOL Endorsement Tracker",
+    client: "Agency",
+    tool: "Looker Studio",
+    industry: "Marketing",
+    tags: ["Pipeline", "Impact"],
+    thumb: look2_jpg,
+    video: look2_gif,
+    problem: "Sulit memantau KOL mana yang belum deal/proses/selesai & dampaknya.",
+    objective: "Pipeline KOL end-to-end dgn tema warna Google.",
+    solution: "Looker + Sheet (form) untuk status & skor impact.",
+    results: ["Transparansi proses meningkat"],
+  },
+  {
+    id: "c-pbi1",
+    title: "Store Sales + Discount Simulator",
+    client: "Retail",
+    tool: "Power BI",
+    industry: "Sales",
+    tags: ["Geo map", "Discount"],
+    thumb: pbi1_jpg,
+    video: pbi1_gif,
+    problem:
+      "Perlu simulasi diskon per produk & visual geo penjualan per provinsi.",
+    objective: "Analisis sales & dampak diskon cepat.",
+    solution: "Model star + DAX untuk parameter diskon, Map visual.",
+    results: ["Eksperimen harga lebih percaya diri"],
+  },
+  {
+    id: "c-tab1",
+    title: "RFM Analysis",
+    client: "E-commerce",
+    tool: "Tableau",
+    industry: "CRM",
+    tags: ["Segmentation", "RFM"],
+    thumb: tab1_jpg,
+    video: tab1_gif,
+    featured: true,
+    problem:
+      "Butuh segmentasi customer dg alasan & ringkasan yang jelas.",
+    objective:
+      "RFM dashboard menampilkan proporsi segmen & alasan scoring.",
+    solution: "Tableau viz best-practice & tooltip ringkas.",
+    results: ["Retensi & targeting naik"],
+  },
+  {
+    id: "c-tab5",
+    title: "Smartphone Sales (Branches)",
+    client: "Retail Gadget",
+    tool: "Tableau",
+    industry: "Sales",
+    tags: ["Branch", "Type", "Spend"],
+    thumb: tab5_jpg,
+    video: tab5_gif,
+    problem: "Butuh ringkasan penjualan & pengeluaran antar cabang/merk/type.",
+    objective: "KPI sales/spend & drilldown cepat.",
+    solution: "Model star + viz interaktif.",
+    results: ["Kontrol biaya & penjualan lebih presisi"],
+  },
+  {
+    id: "c-tab8",
+    title: "BPJS Health — Comprehensive",
+    client: "Healthcare",
+    tool: "Tableau",
+    industry: "Insurance / Health",
+    tags: ["Diagnosis", "Premium", "City"],
+    thumb: tab8_jpg,
+    video: tab8_gif,
+    problem:
+      "Perlu pandangan komprehensif: penyakit, level asuransi, premi, biaya per kota, demografi dsb.",
+    objective:
+      "Eksplorasi lengkap dengan ringkasan eksekutif.",
+    solution:
+      "Tableau multi-page + bookmark; viz advanced.",
+    results: ["Insight eksekutif cepat, detail tersedia"],
+  },
 ];
 
-/* -----------------------------
-   Page
------------------------------- */
+/* ============================
+   PAGE KOMPONEN
+============================= */
 export default function PortfolioServicePage() {
-  const [query, setQuery] = useState("");
-  const [toolFilter, setToolFilter] = useState("All");
+  /* --- state & derived --- */
+  const [filter, setFilter] = useState("All");
+  const [q, setQ] = useState("");
   const [active, setActive] = useState(null);
-  const [showAll, setShowAll] = useState(false);
+  const [showAll, setShowAll] = useState(true); // langsung tampil semua
 
   const filtered = useMemo(() => {
-    const q = query.toLowerCase();
-    return CASES.filter((c) => {
-      const matchTool = toolFilter === "All" || c.tool === toolFilter;
-      const matchQ =
-        !q ||
+    const qq = q.toLowerCase();
+    const f = filter;
+    const res = CASES.filter((c) => {
+      const okTool = f === "All" || c.tool === f;
+      const okQ =
+        !qq ||
         [c.title, c.industry, c.tool, c.problem, c.objective, c.solution, ...(c.tags || [])]
           .join(" ")
           .toLowerCase()
-          .includes(q);
-      return matchTool && matchQ;
+          .includes(qq);
+      return okTool && okQ;
     });
-  }, [query, toolFilter]);
+    // fallback bila kosong -> tampilkan semua biar gallery tidak hilang
+    return res.length ? res : CASES;
+  }, [filter, q]);
 
-  const itemsToRender = useMemo(() => {
+  const items = useMemo(() => {
     if (showAll) return filtered;
-    const featured = filtered.filter((c) => c.featured);
-    if (featured.length >= 4) return featured.slice(0, 4);
-    return filtered.slice(0, 4);
+    const feat = filtered.filter((c) => c.featured);
+    return feat.length ? feat : filtered.slice(0, 4);
   }, [filtered, showAll]);
 
   return (
@@ -149,7 +299,7 @@ export default function PortfolioServicePage() {
           </nav>
           <a
             className="inline-flex items-center px-4 py-2 rounded-2xl bg-indigo-600 text-white hover:bg-indigo-700"
-            href={waBase("Hi kak, mau tanya-tanya dulu tentang jasa pembuatan dashboard ya 🙌")}
+            href={wa("Hi kak, mau tanya-tanya dulu tentang jasa pembuatan dashboard ya 🙌")}
           >
             Chat WhatsApp
           </a>
@@ -170,8 +320,8 @@ export default function PortfolioServicePage() {
               yang Bikin Keputusan Lebih Cepat
             </motion.h1>
             <p className="mt-4 text-slate-600 md:text-lg">
-              Jasa dashboard untuk <b>Excel</b>, <b>Google Sheets</b>, <b>Looker Studio</b>,{" "}
-              <b>Power BI</b>, dan <b>Tableau</b>. Fokus: insight cepat, otomasi rapi, desain sesuai brand.
+              Jasa dashboard untuk <b>Excel</b>, <b>Google Sheets</b>, <b>Looker Studio</b>, <b>Power BI</b>, dan <b>Tableau</b>.
+              Fokus: insight cepat, otomasi rapi, desain sesuai brand.
             </p>
             <div className="mt-6 flex flex-wrap items-center gap-3 text-sm">
               <Badge icon={<Database className="h-4 w-4 mr-1" />}>Data Modeling</Badge>
@@ -182,14 +332,11 @@ export default function PortfolioServicePage() {
             <div className="mt-8 flex flex-wrap gap-3">
               <a
                 className="inline-flex items-center px-5 py-3 rounded-2xl bg-indigo-600 text-white hover:bg-indigo-700"
-                href={waBase("Hi kak, mau tanya-tanya dulu tentang jasa pembuatan dashboard ya 🙌")}
+                href={wa("Hi kak, mau tanya-tanya dulu tentang jasa pembuatan dashboard ya 🙌")}
               >
                 Konsultasi Gratis <ArrowRight className="ml-2 h-4 w-4" />
               </a>
-              <a
-                className="inline-flex items-center px-5 py-3 rounded-2xl border border-slate-300 hover:bg-slate-50"
-                href="#portfolio"
-              >
+              <a className="inline-flex items-center px-5 py-3 rounded-2xl border border-slate-300 hover:bg-slate-50" href="#portfolio">
                 Lihat Portfolio
               </a>
             </div>
@@ -199,11 +346,7 @@ export default function PortfolioServicePage() {
           </div>
 
           <div className="md:pl-6">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.98 }}
-              animate={{ opacity: 1, scale: 1 }}
-              className="grid grid-cols-2 gap-4"
-            >
+            <motion.div initial={{ opacity: 0, scale: 0.98 }} animate={{ opacity: 1, scale: 1 }} className="grid grid-cols-2 gap-4">
               <NeedCard
                 icon={<FileSpreadsheet className="h-5 w-5" />}
                 title="Excel / Sheets"
@@ -237,7 +380,7 @@ export default function PortfolioServicePage() {
         </div>
       </section>
 
-      {/* PORTFOLIO */}
+      {/* GALLERY */}
       <section id="portfolio" className="max-w-6xl mx-auto px-4 py-10 md:py-16">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-6">
           <div>
@@ -246,15 +389,13 @@ export default function PortfolioServicePage() {
               Klik card untuk baca cerita: problem, objektif, dan solusi. Preview dibuat ringan untuk mobile.
             </p>
           </div>
-
           <div className="flex items-center gap-2 w-full md:w-auto">
             <div className="hidden md:block text-sm text-slate-500">Filter:</div>
-            {/* scrollable segmented */}
             <Segmented
-              value={toolFilter}
+              value={filter}
               onChange={(v) => {
-                setToolFilter(v);
-                setShowAll(false);
+                setFilter(v);
+                setShowAll(true);
               }}
               options={["All", "Excel", "Google Sheets", "Looker Studio", "Power BI", "Tableau"]}
             />
@@ -263,28 +404,25 @@ export default function PortfolioServicePage() {
               <input
                 placeholder="Cari: retail, geo map, KPI…"
                 className="w-full pl-9 pr-3 py-2 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-indigo-200"
-                value={query}
-                onChange={(e) => {
-                  setQuery(e.target.value);
-                  setShowAll(true);
-                }}
+                value={q}
+                onChange={(e) => setQ(e.target.value)}
               />
             </div>
           </div>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
-          {itemsToRender.map((item) => (
-            <motion.div key={item.id} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}>
+          {items.map((it) => (
+            <motion.div key={it.id} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}>
               <button
                 className="w-full text-left rounded-2xl border bg-white overflow-hidden hover:shadow-md transition"
-                onClick={() => setActive(item)}
-                aria-label={`Lihat detail ${item.title}`}
+                onClick={() => setActive(it)}
+                aria-label={`Lihat detail ${it.title}`}
               >
                 <div className="w-full aspect-[16/10] bg-slate-100 overflow-hidden">
                   <img
-                    src={item.thumb}
-                    alt={item.title}
+                    src={it.thumb}
+                    alt={it.title}
                     className="w-full h-full object-cover"
                     loading="lazy"
                     decoding="async"
@@ -294,17 +432,15 @@ export default function PortfolioServicePage() {
                 <div className="p-4">
                   <div className="flex items-center justify-between gap-2">
                     <div className="font-semibold overflow-hidden text-ellipsis whitespace-nowrap">
-                      {item.title}
+                      {it.title}
                     </div>
-                    <span className="px-2 py-1 text-xs rounded-full bg-slate-100 border">
-                      {item.tool}
-                    </span>
+                    <span className="px-2 py-1 text-xs rounded-full bg-slate-100 border">{it.tool}</span>
                   </div>
                   <div className="text-xs text-slate-500 mt-1 overflow-hidden text-ellipsis whitespace-nowrap">
-                    {item.industry}
+                    {it.industry}
                   </div>
                   <div className="mt-2 flex flex-wrap gap-1">
-                    {item.tags?.map((tg) => (
+                    {it.tags?.map((tg) => (
                       <span key={tg} className="px-2 py-0.5 text-xs rounded-full border bg-white">
                         {tg}
                       </span>
@@ -328,23 +464,21 @@ export default function PortfolioServicePage() {
           </button>
         </div>
 
-        {/* MODAL */}
         {active && (
           <Modal isOpen={!!active} onClose={() => setActive(null)}>
-            <ModalPanel active={active} onClose={() => setActive(null)} />
+            <ModalPanel data={active} onClose={() => setActive(null)} />
           </Modal>
         )}
       </section>
 
-      {/* PRICING */}
+      {/* PRICING (rapi & tinggi sama) */}
       <section id="pricing" className="max-w-6xl mx-auto px-4 py-10 md:py-16">
         <div className="text-center mb-8">
           <h2 className="text-2xl md:text-4xl font-bold">Paket & Harga</h2>
         </div>
 
-        {/* GROUP 1: SHEETS */}
         <h3 className="text-lg font-semibold mb-3">Paket Sheets (Excel / Google Sheets)</h3>
-        <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto mb-8">
+        <div className="grid md:grid-cols-2 gap-6 items-stretch">
           <PriceCard
             title="Premium — Sheets"
             price={700_000}
@@ -372,9 +506,8 @@ export default function PortfolioServicePage() {
           />
         </div>
 
-        {/* GROUP 2: BI */}
-        <h3 className="text-lg font-semibold mb-3">Paket BI (Looker / Power BI / Tableau)</h3>
-        <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+        <h3 className="text-lg font-semibold mt-10 mb-3">Paket BI (Looker / Power BI / Tableau)</h3>
+        <div className="grid md:grid-cols-2 gap-6 items-stretch">
           <PriceCard
             title="Premium — BI"
             price={1_000_000}
@@ -405,7 +538,7 @@ export default function PortfolioServicePage() {
         <div className="text-center mt-10">
           <a
             className="inline-flex items-center px-5 py-3 rounded-2xl bg-indigo-600 text-white hover:bg-indigo-700"
-            href={waBase("Halo, saya ingin konsultasi paket yang paling cocok dengan kebutuhan saya.")}
+            href={wa("Halo, saya ingin konsultasi paket yang paling cocok dengan kebutuhan saya.")}
           >
             Tanya Paket yang Cocok
           </a>
@@ -421,23 +554,16 @@ export default function PortfolioServicePage() {
           <h2 className="text-2xl md:text-4xl font-bold">Proses Kerja Ringkas</h2>
         </div>
         <div className="grid md:grid-cols-4 gap-4">
+          <StepCard n={1} t="Discovery" d="Klien brief kebutuhan: tujuan bisnis, data scope, dan sample data." />
+          <StepCard n={2} t="Deal" d="Klien setuju dengan harga & melakukan DP. Kami kunci scope & timeline." />
           <StepCard
-            n={1}
-            t="Discovery"
-            d="Klien brief kebutuhan: tujuan bisnis, data scope, dan sample data."
+            n={3}
+            t="Build"
+            d="Proses ETL/cleaning, modeling, desain UI sesuai tema/request. Progress update rutin."
           />
-          <StepCard
-            n={2}
-            t="Deal"
-            d="Klien setuju dengan harga & melakukan DP. Kami kunci scope & timeline."
-          />
-          <StepCard n={3} t="Build" d="ETL/cleaning, modeling, desain UI; progress update rutin." />
           <StepCard n={4} t="Handover" d="Review, revisi, dokumentasi singkat, dan serah terima." />
         </div>
       </section>
-
-      {/* TOOLS COMPARE (tetap) */}
-      {/* … (biarkan sama seperti sebelumnya) */}
 
       {/* FAQ */}
       <section id="faq" className="max-w-6xl mx-auto px-4 py-10 md:py-16">
@@ -448,8 +574,8 @@ export default function PortfolioServicePage() {
               <Faq q="Berapa lama pengerjaan?" a="Premium umumnya 3–7 hari kerja, Pro 5–14 hari. Timeline disepakati di awal." />
               <Faq q="Apa saja yang saya dapat?" a="File dashboard final, dokumentasi singkat, dan support minor 7 hari." />
               <Faq
-                q="Bedanya Premium vs Pro apa?"
-                a="Pada paket Pro, request & proses ETL/modeling lebih kompleks (mis. DAX/transformasi berat), jumlah halaman bisa >2, dan biasanya melibatkan skenario analitik yang lebih advanced. Di luar itu, kualitas desain, flow kerja, dan after-sales tetap sama bagusnya dengan Premium."
+                q="Bedanya Premium vs Pro?"
+                a="Premium: data relatif rapi & skenario sederhana. Pro: ETL/modeling & kalkulasi lebih kompleks, halaman bisa >2. Kualitas desain & proses tetap sama bagusnya."
               />
               <Faq q="Apakah bisa NDA?" a="Bisa. Kami siap NDA atau masking data sensitif." />
             </div>
@@ -463,7 +589,7 @@ export default function PortfolioServicePage() {
               <div className="mt-4">
                 <a
                   className="inline-flex items-center px-5 py-3 rounded-2xl bg-indigo-600 text-white hover:bg-indigo-700"
-                  href={waBase("Halo, saya ingin membuat dashboard. Berikut gambaran kebutuhan saya: ...")}
+                  href={wa("Halo, saya ingin membuat dashboard. Berikut gambaran kebutuhan saya: ...")}
                 >
                   Chat WhatsApp Sekarang
                 </a>
@@ -483,7 +609,7 @@ export default function PortfolioServicePage() {
           <div className="flex items-center gap-4">
             <a className="hover:underline" href="#portfolio">Portfolio</a>
             <a className="hover:underline" href="#pricing">Harga</a>
-            <a className="hover:underline" href={waBase("Halo, saya ingin menanyakan ketersediaan jadwal pembuatan dashboard.")}>Contact</a>
+            <a className="hover:underline" href={wa("Halo, saya ingin menanyakan ketersediaan jadwal pembuatan dashboard.")}>Contact</a>
           </div>
           <div>© {new Date().getFullYear()} Kerja.id — All rights reserved.</div>
         </div>
@@ -493,14 +619,14 @@ export default function PortfolioServicePage() {
 }
 
 /* ============================
-   Modal (scrollable + body lock)
+   MODAL + BODY LOCK (MOBILE OK)
 ============================= */
-function useBodyScrollLock(isOpen) {
-  const scrollYRef = useRef(0);
+function useBodyLock(open) {
+  const y = useRef(0);
   useEffect(() => {
-    if (!isOpen) return;
-    scrollYRef.current = window.scrollY || window.pageYOffset;
-    const original = {
+    if (!open) return;
+    y.current = window.scrollY || window.pageYOffset;
+    const prev = {
       position: document.body.style.position,
       top: document.body.style.top,
       left: document.body.style.left,
@@ -509,25 +635,25 @@ function useBodyScrollLock(isOpen) {
       overflowY: document.body.style.overflowY,
     };
     document.body.style.position = "fixed";
-    document.body.style.top = `-${scrollYRef.current}px`;
+    document.body.style.top = `-${y.current}px`;
     document.body.style.left = "0";
     document.body.style.right = "0";
     document.body.style.width = "100%";
     document.body.style.overflowY = "hidden";
     return () => {
-      document.body.style.position = original.position;
-      document.body.style.top = original.top;
-      document.body.style.left = original.left;
-      document.body.style.right = original.right;
-      document.body.style.width = original.width;
-      document.body.style.overflowY = original.overflowY;
-      window.scrollTo(0, scrollYRef.current);
+      document.body.style.position = prev.position;
+      document.body.style.top = prev.top;
+      document.body.style.left = prev.left;
+      document.body.style.right = prev.right;
+      document.body.style.width = prev.width;
+      document.body.style.overflowY = prev.overflowY;
+      window.scrollTo(0, y.current);
     };
-  }, [isOpen]);
+  }, [open]);
 }
 
 function Modal({ isOpen, onClose, children }) {
-  useBodyScrollLock(isOpen);
+  useBodyLock(isOpen);
   useEffect(() => {
     if (!isOpen) return;
     const onKey = (e) => e.key === "Escape" && onClose?.();
@@ -546,13 +672,13 @@ function Modal({ isOpen, onClose, children }) {
   );
 }
 
-function ModalPanel({ active, onClose }) {
+function ModalPanel({ data, onClose }) {
   return (
     <div className="rounded-2xl bg-white shadow-xl border pointer-events-auto" onClick={(e) => e.stopPropagation()}>
       <div className="flex items-start justify-between gap-3 p-5 border-b sticky top-0 bg-white/95 backdrop-blur z-10 rounded-t-2xl">
         <div>
-          <div id="modal-title" className="text-lg md:text-xl font-semibold">{active.title}</div>
-          <div className="text-slate-500 mt-1">{active.industry}</div>
+          <div id="modal-title" className="text-lg md:text-xl font-semibold">{data.title}</div>
+          <div className="text-slate-500 mt-1">{data.industry}</div>
         </div>
         <button className="p-2 rounded-lg hover:bg-slate-100" onClick={onClose} aria-label="Tutup">
           <X className="h-5 w-5" />
@@ -564,37 +690,15 @@ function ModalPanel({ active, onClose }) {
           <div className="grid md:grid-cols-5 gap-6">
             <div className="md:col-span-3 space-y-4">
               <div className="relative rounded-xl overflow-hidden bg-slate-100">
-                {(() => {
-                  const src = active.video || active.thumb;
-                  const isVideo = typeof src === "string" && (src.endsWith(".mp4") || src.endsWith(".webm"));
-                  return isVideo ? (
-                    <video
-                      src={src}
-                      controls
-                      poster={active.thumb}
-                      preload="metadata"
-                      className="w-full bg-black h-[360px] md:h-[520px] object-contain"
-                    />
-                  ) : src.endsWith(".gif") ? (
-                    <img
-                      src={src}
-                      alt="preview"
-                      className="w-full h-[360px] md:h-[520px] object-contain bg-white"
-                      loading="lazy"
-                      decoding="async"
-                    />
-                  ) : (
-                    <img
-                      src={active.thumb}
-                      alt="preview"
-                      className="w-full h-[360px] md:h-[520px] object-contain bg-white"
-                      loading="lazy"
-                      decoding="async"
-                    />
-                  );
-                })()}
+                <img
+                  src={data.video || data.thumb}
+                  alt="preview"
+                  className="w-full h-[360px] md:h-[520px] object-contain bg-white"
+                  loading="lazy"
+                  decoding="async"
+                />
                 <a
-                  href={active.video || active.thumb}
+                  href={data.video || data.thumb}
                   target="_blank"
                   rel="noreferrer"
                   className="absolute top-3 right-3 inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-white/90 backdrop-blur border text-xs hover:bg-white"
@@ -604,23 +708,23 @@ function ModalPanel({ active, onClose }) {
                 </a>
               </div>
 
-              {active.results?.length > 0 && (
+              {data.results?.length > 0 && (
                 <div className="p-4 bg-indigo-50 rounded-xl text-sm">
                   <div className="font-semibold mb-1">Hasil & Dampak</div>
                   <ul className="list-disc ml-5 space-y-1">
-                    {active.results.map((r, i) => <li key={i}>{r}</li>)}
+                    {data.results.map((r, i) => <li key={i}>{r}</li>)}
                   </ul>
                 </div>
               )}
             </div>
 
             <div className="md:col-span-2 space-y-4">
-              <DetailBlock title="Problem" text={active.problem} variant="problem" />
-              <DetailBlock title="Objektif" text={active.objective} variant="objective" />
-              <DetailBlock title="Solusi" text={active.solution} variant="solution" />
+              <Detail title="Problem" text={data.problem} variant="problem" />
+              <Detail title="Objektif" text={data.objective} variant="objective" />
+              <Detail title="Solusi" text={data.solution} variant="solution" />
               <a
                 className="inline-flex items-center justify-center w-full px-4 py-2 rounded-2xl bg-indigo-600 text-white hover:bg-indigo-700"
-                href={waBase(`Hi kak, saya tertarik project seperti: ${active.title}. Boleh diskusi scope & timeline?`)}
+                href={wa(`Hi kak, saya tertarik project seperti: ${data.title}. Boleh diskusi scope & timeline?`)}
               >
                 Diskusikan Proyek Ini
               </a>
@@ -632,28 +736,27 @@ function ModalPanel({ active, onClose }) {
   );
 }
 
-/* -----------------------------
-   Small components
------------------------------- */
+/* ============================
+   UI KOMPONEN KECIL
+============================= */
 function PriceCard({ title, price, bullets, ctaMsg, accent = false }) {
   return (
-    <div className={`rounded-2xl border bg-white p-6 ${accent ? "border-indigo-300 shadow-[0_10px_30px_rgba(79,70,229,0.08)]" : ""}`}>
+    <div className={`h-full rounded-2xl border bg-white p-6 flex flex-col ${accent ? "border-indigo-300 shadow-[0_10px_30px_rgba(79,70,229,0.08)]" : ""}`}>
       <div className="flex items-center justify-between">
         <div className="text-lg font-semibold">{title}</div>
         {accent && <span className="px-2 py-1 text-xs rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200">Paling Populer</span>}
       </div>
       <div className="text-3xl font-bold mt-2">
-        {money(price)}<span className="text-base font-normal text-slate-500"> / start from</span>
+        {rupiah(price)} <span className="text-base font-normal text-slate-500">/ start from</span>
       </div>
       <ul className="space-y-2 mt-4">
         {bullets.map((b, i) => (
           <li key={i} className="flex gap-2 text-slate-700 text-sm">
-            <CheckCircle2 className="h-4 w-4 text-indigo-600 mt-0.5" />
-            {b}
+            <CheckCircle2 className="h-4 w-4 text-indigo-600 mt-0.5" /> {b}
           </li>
         ))}
       </ul>
-      <a className="mt-4 inline-flex items-center justify-center w-full px-4 py-2 rounded-2xl bg-indigo-600 text-white hover:bg-indigo-700" href={waBase(ctaMsg)}>
+      <a className="mt-auto inline-flex items-center justify-center w-full px-4 py-2 rounded-2xl bg-indigo-600 text-white hover:bg-indigo-700" href={wa(ctaMsg)}>
         Pesan via WhatsApp
       </a>
     </div>
@@ -670,53 +773,13 @@ function StepCard({ n, t, d }) {
   );
 }
 
-function ToolCard({ icon, title, bestFor, pros = [], cons = [], classes }) {
-  return (
-    <div className={`h-full rounded-2xl border p-4 md:p-5 ${classes?.container ?? ""}`} role="region" aria-label={title}>
-      <div className={`flex items-center gap-2 font-semibold ${classes?.title ?? ""}`}>
-        <span className={`inline-flex items-center px-2 py-1 rounded-lg ${classes?.pill ?? ""}`}>{icon}</span>
-        <span>{title}</span>
-      </div>
-      <div className="mt-3 text-[13px] leading-5 text-slate-700">
-        <div className="font-medium">Cocok untuk:</div>
-        <div className="text-slate-600">{bestFor}</div>
-      </div>
-      <div className="mt-3 grid grid-cols-1 gap-2 text-[13px] leading-5">
-        <div>
-          <div className="font-medium text-slate-800">Kelebihan</div>
-          <ul className="mt-1 space-y-1">
-            {pros.map((p, i) => (
-              <li key={i} className="flex items-start gap-2">
-                <CheckCircle2 className="h-4 w-4 text-emerald-600 shrink-0" />
-                <span className="text-slate-700">{p}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div>
-          <div className="font-medium text-slate-800">Kekurangan</div>
-          <ul className="mt-1 space-y-1">
-            {cons.map((c, i) => (
-              <li key={i} className="flex items-start gap-2">
-                <span className="h-4 w-4 shrink-0 rounded-full bg-slate-400/30 text-slate-500 grid place-content-center text-[10px]">–</span>
-                <span className="text-slate-700">{c}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
-    </div>
-  );
-}
-
 function NeedCard({ icon, title, line1, line2, color = "emerald" }) {
-  const map = {
+  const c = {
     emerald: { border: "border-emerald-200", title: "text-emerald-800", pill: "bg-emerald-100 text-emerald-800" },
     sky: { border: "border-sky-200", title: "text-sky-900", pill: "bg-sky-100 text-sky-800" },
     amber: { border: "border-amber-200", title: "text-amber-900", pill: "bg-amber-100 text-amber-900" },
     indigo: { border: "border-indigo-200", title: "text-indigo-900", pill: "bg-indigo-100 text-indigo-900" },
-  };
-  const c = map[color] || map.emerald;
+  }[color];
   return (
     <div className={`rounded-2xl border bg-white p-4 md:p-5 ${c.border}`}>
       <div className={`flex items-center gap-2 font-semibold ${c.title}`}>
@@ -729,18 +792,18 @@ function NeedCard({ icon, title, line1, line2, color = "emerald" }) {
   );
 }
 
-function DetailBlock({ title, text, variant = "info" }) {
+function Detail({ title, text, variant = "info" }) {
   if (!text) return null;
   const map = {
     problem: { bg: "bg-rose-50", border: "border-rose-200", text: "text-rose-900", Icon: AlertTriangle },
     objective: { bg: "bg-indigo-50", border: "border-indigo-200", text: "text-indigo-900", Icon: Target },
     solution: { bg: "bg-emerald-50", border: "border-emerald-200", text: "text-emerald-900", Icon: Wrench },
     info: { bg: "bg-slate-50", border: "border-slate-200", text: "text-slate-900", Icon: Info },
-  };
-  const { bg, border, text: txt, Icon } = map[variant] || map.info;
+  }[variant] || {};
+  const Icon = map.Icon || Info;
   return (
-    <div className={`rounded-xl p-4 border ${border} ${bg}`}>
-      <div className={`flex items-center gap-2 font-semibold ${txt}`}>
+    <div className={`rounded-xl p-4 border ${map.border} ${map.bg}`}>
+      <div className={`flex items-center gap-2 font-semibold ${map.text}`}>
         <Icon className="h-4 w-4" /> {title}
       </div>
       <div className="text-sm text-slate-700 mt-1 whitespace-pre-line leading-relaxed">{text}</div>
@@ -766,7 +829,7 @@ function Badge({ children, icon }) {
   );
 }
 
-/** Segmented control — now horizontally scrollable on mobile */
+/** Segmented control — scrollable di mobile */
 function Segmented({ value, onChange, options }) {
   return (
     <div className="max-w-full overflow-x-auto -mx-1 px-1">
@@ -776,9 +839,7 @@ function Segmented({ value, onChange, options }) {
           return (
             <button
               key={opt}
-              className={`px-3 py-1.5 text-sm border-r last:border-r-0 ${
-                active ? "bg-indigo-600 text-white" : "hover:bg-slate-50"
-              }`}
+              className={`px-3 py-1.5 text-sm border-r last:border-r-0 ${active ? "bg-indigo-600 text-white" : "hover:bg-slate-50"}`}
               onClick={() => onChange(opt)}
             >
               {opt}
