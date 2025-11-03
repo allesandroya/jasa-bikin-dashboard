@@ -108,6 +108,42 @@ const CASES = [
       "Excel modeling (safety stock, reorder) + dashboard ringkas untuk alert restock.",
     results: ["Stockout menurun", "Perencanaan pembelian lebih presisi"],
   },
+
+    {
+      id: "c-ex4",
+      title: "Target Sales Tracker",
+      tool: "Excel",
+      industry: "Sales",
+      tags: ["Target vs Actual", "Gantt", "Team Coloring"],
+      thumb: excel4_jpg,
+      video: excel4_gif,
+      problem: `Sulit melihat mana salesperson yang sudah mencapai target tiap bulan dan progress keseluruhan per tim. Visual timeline tidak ada, sehingga koordinasi proyek penjualan kurang jelas.`,
+      objective: `Menampilkan pencapaian target per sales & per bulan dengan visual Gantt dan pewarnaan berbeda per tim agar status cepat terbaca.`,
+      solution: `Model target/actual per bulan, Gantt pseudo-chart di Excel, pewarnaan dinamis per tim, serta kartu KPI ringkas (achievement, gap).`,
+      results: [
+        "Daily stand-up lebih cepat karena visualisasi jelas.",
+        "Manager mudah mengidentifikasi sales yang butuh bantuan.",
+        "Rate pencapaian target tim meningkat.",
+      ],
+    },
+  
+    {
+      id: "c-ex5",
+      title: "Project & Budget Tracker",
+      tool: "Excel",
+      industry: "PMO / Ops",
+      tags: ["Timeline", "Priority", "Budget"],
+      thumb: excel5_jpg,
+      video: excel5_gif,
+      problem: `Proyek berjalan paralel tanpa ringkasan yang rapi: tanggal mulai/selesai, persentase progress, prioritas, dan realisasi anggaran sulit dipantau dalam satu tempat.`,
+      objective: `Menyatukan informasi inti proyek dan halaman khusus budget untuk melihat pemakaian vs alokasi.`,
+      solution: `Tabel proyek (start, end, %progress, priority), kanban/gantt sederhana, halaman budget dengan breakdown kategori & variance, serta filter per PIC/tim.`,
+      results: [
+        "Stakeholder punya single source of truth proyek.",
+        "Deteksi potensi over-budget lebih dini.",
+        "Rapat koordinasi mingguan lebih ringkas & fokus.",
+      ],
+    },
   {
     id: "c-ex6",
     title: "Smartphone Sales Dashboard",
@@ -122,6 +158,59 @@ const CASES = [
     solution: "Parameter + formula & Pivot untuk metrik dinamis; UI ringan.",
     results: ["Analisis fleksibel & cepat"],
   },
+
+  {
+    id: "c-ex7",
+    title: "Monitoring Kepatuhan Diklat per Direktorat",
+    tool: "Excel",
+    industry: "Public Sector / HR",
+    tags: ["Training Compliance", "Gap Analysis"],
+    thumb: excel7_jpg,
+    video: excel7_gif,
+    problem: `Perlu memantau karyawan yang sudah/ belum memenuhi diklat per direktorat, dan modul apa saja yang masih kurang.`,
+    objective: `Menyediakan tampilan ringkas daftar karyawan belum memenuhi diklat per direktorat beserta modul yang harus diambil.`,
+    solution: `Match daftar kompetensi per jabatan dengan status diklat; gap-list otomatis per direktorat; filter nama/jabatan; export untuk tindak lanjut HR.`,
+    results: [
+      "Kesenjangan kompetensi terlihat jelas per direktorat.",
+      "Tindak lanjut training lebih terarah & terukur.",
+    ],
+  },
+
+  {
+    id: "c-ex8",
+    title: "Employee Dashboard (Attrition, HDRF Utilization, PISA)",
+    tool: "Excel",
+    industry: "HR",
+    tags: ["Headcount", "Attrition", "Utilization", "Compliance"],
+    thumb: excel8_jpg,
+    video: excel8_gif,
+    problem: `Manajemen memerlukan pandangan menyeluruh atas headcount saat ini, turnover/attrition, HDRF utilization, dan status PISA submission.`,
+    objective: `Memberi gambaran kondisi tenaga kerja terkini dan indikator kepatuhan/ pemanfaatan program.`,
+    solution: `ETL data HR master + log kepesertaan; KPI attrition & utilization; tren bulanan; segmentasi per unit/grade; indikator submission PISA.`,
+    results: [
+      "Visibilitas HR meningkat; diskusi manajemen lebih berbasis data.",
+      "Area dengan risiko attrition tinggi cepat terdeteksi.",
+    ],
+  },
+
+  {
+    id: "c-ex9",
+    title: "Project Monitoring + RAID",
+    tool: "Excel",
+    industry: "PMO / Ops",
+    tags: ["Timeline", "RAID", "Issue Tracking"],
+    thumb: excel9_jpg,
+    video: excel9_gif,
+    problem: `Mirip Project & Budget Tracker namun fokus pada kontrol proyek berjalan dan halaman RAID (Risks, Assumptions, Issues, Dependencies) untuk mitigasi.`,
+    objective: `Memusatkan status proyek dan daftar risiko/isu/dependensi untuk mempercepat eskalasi dan keputusan.`,
+    solution: `Ringkasan status & timeline, halaman RAID dengan owner, severity, due date, dan rekomendasi aksi; filter per project/PIC.`,
+    results: [
+      "Mitigasi risiko lebih cepat; blocking issues turun.",
+      "Transparansi status proyek meningkat lintas tim.",
+    ],
+  },
+
+
   {
     id: "c-ex10",
     title: "Transport Management (VBA)",
@@ -216,6 +305,58 @@ const CASES = [
     solution: "Tableau viz best-practice & tooltip ringkas.",
     results: ["Retensi & targeting naik"],
   },
+
+  {
+    id: "c-tab2",
+    title: "RFM Analysis — Customer Detail",
+    tool: "Tableau",
+    industry: "E-Commerce / Retail",
+    tags: ["RFM Detail", "Customer 360"],
+    thumb: tab2_jpg,
+    video: tab2_gif,
+    problem: `Setelah overview, tim butuh melihat nilai recency/frequency/monetary per customer dan segmen masing-masing.`,
+    objective: `Memberikan tampilan detail per customer lengkap dengan skor & riwayat transaksi.`,
+    solution: `Tabel detail customer dengan R/F/M, filter segmen, link drill ke histori transaksi; export untuk CRM campaign.`,
+    results: [
+      "Tim CRM bisa mengeksekusi kampanye yang sangat terarah.",
+      "Analisis churn & upsell jadi actionable.",
+    ],
+  },
+
+  {
+    id: "c-tab3",
+    title: "Monitoring Administrasi Kapal",
+    tool: "Tableau",
+    industry: "Marine",
+    tags: ["Compliance", "Budget Usage"],
+    thumb: tab3_jpg,
+    video: tab3_gif,
+    problem: `Perlu memeriksa kelengkapan administrasi tiap kapal serta anggaran yang sudah terpakai.`,
+    objective: `Menyediakan status kepatuhan administrasi per kapal dan ringkasan biaya terkait.`,
+    solution: `Checklist dokumen per kapal, indikator hijau/merah, rekap biaya per kapal/per periode; filter armada & rute.`,
+    results: [
+      "Temuan dokumen kurang lengkap turun signifikan.",
+      "Kontrol biaya per kapal lebih ketat & terdokumentasi.",
+    ],
+  },
+
+  {
+    id: "c-tab4",
+    title: "Monitoring Status Kapal",
+    tool: "Tableau",
+    industry: "Marine",
+    tags: ["Asset Value", "Destination", "Vendor"],
+    thumb: tab4_jpg,
+    video: tab4_gif,
+    problem: `Manajemen ingin melihat nilai kapal per unit, tujuan, penyedia, serta dinamika anggaran & nilai per bulan.`,
+    objective: `Memberikan pandangan menyeluruh nilai aset & pergerakannya per vendor/tujuan.`,
+    solution: `Model aset kapal, ringkasan nilai/budget bulanan, breakdown per vendor & tujuan, tren nilai, dan indikator penyimpangan.`,
+    results: [
+      "Pengambilan keputusan investasi/maintenance lebih berbasis data.",
+      "Variasi nilai per vendor/tujuan lebih mudah dianalisis.",
+    ],
+  },
+
   {
     id: "c-tab5",
     title: "Smartphone Sales (Branches)",
@@ -230,6 +371,41 @@ const CASES = [
     solution: "Model star + viz interaktif.",
     results: ["Kontrol biaya & penjualan lebih presisi"],
   },
+
+  {
+    id: "c-tab6",
+    title: "Financial Development Dashboard",
+    tool: "Tableau",
+    industry: "Finance",
+    tags: ["Dept", "Cost Center", "Revenue", "Expenses"],
+    thumb: tab6_jpg,
+    video: tab6_gif,
+    problem: `Manajemen butuh memantau nilai ekonomi per department, cost centre, revenue & expenses, termasuk tren penjualan.`,
+    objective: `Satu dashboard keuangan komprehensif untuk pemantauan performa & efisiensi biaya.`,
+    solution: `Ringkasan P&L per dept/cost centre, tren revenue & expense, variance vs target, dan drill ke transaksi besar.`,
+    results: [
+      "Identifikasi penghematan biaya lebih cepat.",
+      "Kinerja departemen bisa dibandingkan secara objektif.",
+    ],
+  },
+
+  {
+    id: "c-tab7",
+    title: "KPI Sales Dashboard",
+    tool: "Tableau",
+    industry: "Sales",
+    tags: ["Target vs Actual", "Province", "Agent"],
+    thumb: tab7_jpg,
+    video: tab7_gif,
+    problem: `Perlu memantau target vs actual, revenue per provinsi, dan achievement per agen sales.`,
+    objective: `Memberikan dasbor KPI penjualan yang langsung menyorot pencapaian & deviasi.`,
+    solution: `Kartu KPI, peta provinsi, leaderboard agen, serta filter waktu/produk; highlight gap untuk coaching cepat.`,
+    results: [
+      "Fokus pembinaan agen menjadi jelas & berdampak.",
+      "Pertumbuhan penjualan lebih konsisten lintas provinsi.",
+    ],
+  },
+
   {
     id: "c-tab8",
     title: "BPJS Health — Comprehensive",
