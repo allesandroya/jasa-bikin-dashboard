@@ -36,6 +36,7 @@ import look1_gif from "../assets/Looker1.gif";     import look1_jpg from "../ass
 import look2_gif from "../assets/Looker2.gif";     import look2_jpg from "../assets/Looker2.jpg";
 // Power BI
 import pbi1_gif from "../assets/Powerbi1.gif";     import pbi1_jpg from "../assets/Powerbi1.jpg";
+import pbi2_gif from "../assets/Powerbi2.gif";     import pbi2_jpg from "../assets/Powerbi2.jpg";
 // Tableau
 import tab1_gif from "../assets/Tableau1.gif";     import tab1_jpg from "../assets/Tableau1.jpg";
 import tab2_gif from "../assets/Tableau2.gif";     import tab2_jpg from "../assets/Tableau2.jpg";
