@@ -289,6 +289,21 @@ const CASES = [
     solution: "Model star + DAX untuk parameter diskon, Map visual.",
     results: ["Eksperimen harga lebih percaya diri"],
   },
+    {
+    id: "c-pbi2",
+    title: "Emission Health Check",
+    client: "Individual",
+    tool: "Power BI",
+    industry: "Sales",
+    tags: ["Emmision", "Health", "Chemical"],
+    thumb: pbi2_jpg,
+    video: pbi2_gif,
+    problem:
+      "Sulit membaca hasil emisi dari data mentah & tidak terlihat mana parameter yang mendekati atau melewati baku mutu.",
+    objective: "Monitoring emisi yang cepat, jelas, dan mudah dipahami.",
+    solution: "Hitung %TLV, PLI, status emisi via DAX + visual KPI, bar chart, dan gauge.",
+    results: ["Parameter kritis langsung terlihat", "Keputusan korektif lebih cepat"],
+  },
   {
     id: "c-tab1",
     title: "RFM Analysis",
