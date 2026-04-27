@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import { motion } from "framer-motion";
+import { motion as Motion } from "framer-motion";
 import {
   Gauge, Database, Settings2, Palette, Clock3, ArrowRight, CheckCircle2, ChevronRight,
   FileSpreadsheet, MonitorSmartphone, BarChart3, LineChart, Filter, X, Maximize2,
@@ -491,9 +491,9 @@ export default function PortfolioServicePage() {
           </nav>
           <a
             className="inline-flex items-center px-4 py-2 rounded-2xl bg-indigo-600 text-white hover:bg-indigo-700"
-            href={wa("Hi kak, mau tanya-tanya dulu tentang jasa pembuatan dashboard ya 🙌")}
+            href="#pricing"
           >
-            Chat WhatsApp
+            Lihat Harga
           </a>
         </div>
       </header>
@@ -502,7 +502,7 @@ export default function PortfolioServicePage() {
       <section className="max-w-6xl mx-auto px-4 py-14 md:py-20">
         <div className="grid md:grid-cols-2 gap-10 items-center">
           <div>
-            <motion.h1
+            <Motion.h1
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
@@ -510,7 +510,7 @@ export default function PortfolioServicePage() {
             >
               Bangun <span className="text-indigo-600">Dashboard Interaktif</span>{" "}
               yang Bikin Keputusan Lebih Cepat
-            </motion.h1>
+            </Motion.h1>
             <p className="mt-4 text-slate-600 md:text-lg">
               Jasa dashboard untuk <b>Excel</b>, <b>Google Sheets</b>, <b>Looker Studio</b>, <b>Power BI</b>, dan <b>Tableau</b>.
               Fokus: insight cepat, otomasi rapi, desain sesuai brand.
@@ -524,9 +524,9 @@ export default function PortfolioServicePage() {
             <div className="mt-8 flex flex-wrap gap-3">
               <a
                 className="inline-flex items-center px-5 py-3 rounded-2xl bg-indigo-600 text-white hover:bg-indigo-700"
-                href={wa("Hi kak, mau tanya-tanya dulu tentang jasa pembuatan dashboard ya 🙌")}
+                href="#pricing"
               >
-                Konsultasi Gratis <ArrowRight className="ml-2 h-4 w-4" />
+                Lihat Harga <ArrowRight className="ml-2 h-4 w-4" />
               </a>
               <a className="inline-flex items-center px-5 py-3 rounded-2xl border border-slate-300 hover:bg-slate-50" href="#portfolio">
                 Lihat Portfolio
@@ -538,7 +538,7 @@ export default function PortfolioServicePage() {
           </div>
 
           <div className="md:pl-6">
-            <motion.div initial={{ opacity: 0, scale: 0.98 }} animate={{ opacity: 1, scale: 1 }} className="grid grid-cols-2 gap-4">
+            <Motion.div initial={{ opacity: 0, scale: 0.98 }} animate={{ opacity: 1, scale: 1 }} className="grid grid-cols-2 gap-4">
               <NeedCard
                 icon={<FileSpreadsheet className="h-5 w-5" />}
                 title="Excel / Sheets"
@@ -567,7 +567,7 @@ export default function PortfolioServicePage() {
                 line2="Pas untuk presentasi eksekutif."
                 color="indigo"
               />
-            </motion.div>
+            </Motion.div>
           </div>
         </div>
       </section>
@@ -605,7 +605,7 @@ export default function PortfolioServicePage() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
           {items.map((it) => (
-            <motion.div key={it.id} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}>
+            <Motion.div key={it.id} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}>
               <button
                 className="w-full text-left rounded-2xl border bg-white overflow-hidden hover:shadow-md transition"
                 onClick={() => setActive(it)}
@@ -643,7 +643,7 @@ export default function PortfolioServicePage() {
                   </div>
                 </div>
               </button>
-            </motion.div>
+            </Motion.div>
           ))}
         </div>
 
@@ -669,61 +669,47 @@ export default function PortfolioServicePage() {
           <h2 className="text-2xl md:text-4xl font-bold">Paket & Harga</h2>
         </div>
 
-        <h3 className="text-lg font-semibold mb-3">Paket Sheets (Excel / Google Sheets)</h3>
-        <div className="grid md:grid-cols-2 gap-6 items-stretch">
+        <div className="grid md:grid-cols-3 gap-6 items-stretch">
           <PriceCard
-            title="Dashboard Premium - Sheets"
-            price={700_000}
-            bullets={[
-              "Data sudah rapi (cleaning minimal)",
-              "Dashboard interaktif sesuai request",
-              "Design rapi sesuai tema",
-              "Maks 2x revisi dalam 1 minggu setelah handover",
-              "Revisi gratis untuk error/bug dalam 2 minggu",
-            ]}
-            ctaMsg="hi kak, mau tanya-tanya tentang paket dashboard premium excel/sheets nih 🙌"
-          />
-          <PriceCard
-            title="Dashboard Pro - Sheets"
+            title="Paket Tugas Pribadi / Mahasiswa"
             price={1_500_000}
-            accent
             bullets={[
-              "Butuh cleaning/modeling/rumus kompleks",
-              "Dashboard interaktif sesuai request",
-              "Design rapi sesuai tema",
-              "Maks 2x revisi dalam 1 minggu setelah handover",
-              "Revisi gratis untuk error/bug dalam 2 minggu",
+              <>Untuk <strong>tugas pribadi, portfolio, skripsi, atau kebutuhan mahasiswa</strong></>,
+              <>Estimasi pengerjaan <strong>4-7 hari kerja</strong></>,
+              <><strong>Dashboard interaktif</strong> sesuai brief</>,
+              <>Desain rapi mengikuti <strong>tema yang diminta</strong></>,
+              <><strong>Revisi minor gratis</strong> selama jangka waktu pengerjaan</>,
+              <>Maksimal <strong>1x revisi minor</strong> dalam <strong>1 minggu setelah handover</strong></>,
+              <>Perbaikan gratis untuk <strong>error/bug selama 2 minggu</strong></>,
             ]}
-            ctaMsg="hi kak, mau tanya-tanya tentang paket dashboard pro excel/sheets nih 🙌"
-          />
-        </div>
-
-        <h3 className="text-lg font-semibold mt-10 mb-3">Paket BI (Looker / Power BI / Tableau)</h3>
-        <div className="grid md:grid-cols-2 gap-6 items-stretch">
-          <PriceCard
-            title="Dashboard Premium - BI Tools"
-            price={1_000_000}
-            bullets={[
-              "Data sudah rapi (cleaning minimal)",
-              "Dashboard interaktif sesuai request",
-              "Design rapi sesuai tema",
-              "Maks 2x revisi dalam 1 minggu setelah handover",
-              "Revisi gratis untuk error/bug dalam 2 minggu",
-            ]}
-            ctaMsg="hi kak, mau tanya-tanya tentang paket dashboard premium BI (Looker/Power BI/Tableau) nih 🙌"
+            ctaMsg="Halo kak, saya mau tanya paket tugas pribadi/mahasiswa untuk pembuatan dashboard."
           />
           <PriceCard
-            title="Dashboard Pro - BI Tools"
-            price={2_000_000}
+            title="Paket Bisnis / Industry Standard"
+            price={5_000_000}
             accent
             bullets={[
-              "Butuh cleaning/modeling/DAX/kalkulasi kompleks",
-              "Dashboard interaktif sesuai request",
-              "Design rapi sesuai tema",
-              "Maks 2x revisi dalam 1 minggu setelah handover",
-              "Revisi gratis untuk error/bug dalam 2 minggu",
+              <>Untuk kebutuhan <strong>bisnis, operasional, reporting, atau analisis internal</strong></>,
+              <>Estimasi pengerjaan <strong>2-3 minggu</strong></>,
+              <>Termasuk <strong>data cleaning, modeling, DAX/rumus, dan kalkulasi kompleks</strong></>,
+              <><strong>Dashboard interaktif</strong> sesuai kebutuhan bisnis</>,
+              <>Desain rapi mengikuti <strong>tema/brand</strong></>,
+              <><strong>Revisi minor gratis</strong> selama jangka waktu pengerjaan</>,
+              <>Maksimal <strong>2x revisi minor</strong> dalam <strong>1 minggu setelah handover</strong></>,
+              <>Perbaikan gratis untuk <strong>error/bug selama 2 minggu</strong></>,
             ]}
-            ctaMsg="hi kak, mau tanya-tanya tentang paket dashboard pro BI (Looker/Power BI/Tableau) nih 🙌"
+            ctaMsg="Halo kak, saya mau tanya paket bisnis / industry standard untuk pembuatan dashboard."
+          />
+          <PriceCard
+            title="Paket Big Project"
+            priceLabel="Harga menyesuaikan"
+            bullets={[
+              <>Untuk project bisnis dengan <strong>scope besar atau multi-tim</strong></>,
+              <>Cocok untuk <strong>banyak data source, banyak user, atau dashboard multi-page</strong></>,
+              <>Estimasi pengerjaan <strong>1 bulan+</strong></>,
+              <><strong>Scope, timeline, dan harga</strong> ditentukan setelah diskusi kebutuhan</>,
+            ]}
+            ctaMsg="Halo kak, saya mau tanya paket big project untuk pembuatan dashboard."
           />
         </div>
 
@@ -735,7 +721,7 @@ export default function PortfolioServicePage() {
             Tanya Paket yang Cocok
           </a>
           <p className="text-xs text-slate-500 mt-2">
-            Harga “start from” — final tergantung cakupan, jumlah halaman, dan integrasi data.
+            Harga final tergantung scope, kualitas data, jumlah halaman dashboard, kompleksitas kalkulasi, dan integrasi data. Timeline dihitung setelah data/brief lengkap diterima.
           </p>
         </div>
       </section>
@@ -869,9 +855,9 @@ export default function PortfolioServicePage() {
               <div className="mt-4">
                 <a
                   className="inline-flex items-center px-5 py-3 rounded-2xl bg-indigo-600 text-white hover:bg-indigo-700"
-                  href={wa("Halo, saya ingin membuat dashboard. Berikut gambaran kebutuhan saya: ...")}
+                  href="#pricing"
                 >
-                  Chat WhatsApp Sekarang
+                  Lihat Paket & Harga
                 </a>
               </div>
               <div className="mt-3 text-xs text-slate-500">Balasan cepat di jam kerja (WIB).</div>
@@ -889,7 +875,7 @@ export default function PortfolioServicePage() {
           <div className="flex items-center gap-4">
             <a className="hover:underline" href="#portfolio">Portfolio</a>
             <a className="hover:underline" href="#pricing">Harga</a>
-            <a className="hover:underline" href={wa("Halo, saya ingin menanyakan ketersediaan jadwal pembuatan dashboard.")}>Contact</a>
+            <a className="hover:underline" href="#faq">FAQ</a>
           </div>
           <div>© {new Date().getFullYear()} Kerja.id — All rights reserved.</div>
         </div>
@@ -1002,12 +988,6 @@ function ModalPanel({ data, onClose }) {
               <Detail title="Problem" text={data.problem} variant="problem" />
               <Detail title="Objektif" text={data.objective} variant="objective" />
               <Detail title="Solusi" text={data.solution} variant="solution" />
-              <a
-                className="inline-flex items-center justify-center w-full px-4 py-2 rounded-2xl bg-indigo-600 text-white hover:bg-indigo-700"
-                href={wa(`Hi kak, saya tertarik project seperti: ${data.title}. Boleh diskusi scope & timeline?`)}
-              >
-                Diskusikan Proyek Ini
-              </a>
             </div>
           </div>
         </div>
@@ -1019,20 +999,22 @@ function ModalPanel({ data, onClose }) {
 /* ============================
    UI KOMPONEN KECIL
 ============================= */
-function PriceCard({ title, price, bullets, ctaMsg, accent = false }) {
+function PriceCard({ title, price, priceLabel, bullets, ctaMsg, accent = false }) {
   return (
     <div className={`h-full rounded-2xl border bg-white p-6 flex flex-col ${accent ? "border-indigo-300 shadow-[0_10px_30px_rgba(79,70,229,0.08)]" : ""}`}>
-      <div className="flex items-center justify-between">
-        <div className="text-lg font-semibold">{title}</div>
-        {accent && <span className="px-2 py-1 text-xs rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200">Paling Populer</span>}
+      <div className="flex items-start justify-between gap-3">
+        <div className="text-lg font-semibold leading-snug">{title}</div>
+        {accent && <span className="shrink-0 px-2 py-1 text-xs rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200">Paling Populer</span>}
       </div>
-      <div className="text-3xl font-bold mt-2">
-        {rupiah(price)} <span className="text-base font-normal text-slate-500">/ start from</span>
+      {!priceLabel && <div className="text-sm font-medium text-slate-500 mt-3">Mulai dari</div>}
+      <div className={`font-bold ${priceLabel ? "text-3xl mt-4" : "text-3xl mt-1"}`}>
+        {priceLabel || rupiah(price)}
       </div>
-      <ul className="space-y-2 mt-4">
+      <ul className="mt-4 flex-1 space-y-2.5">
         {bullets.map((b, i) => (
-          <li key={i} className="flex gap-2 text-slate-700 text-sm">
-            <CheckCircle2 className="h-4 w-4 text-indigo-600 mt-0.5" /> {b}
+          <li key={i} className="grid grid-cols-[1rem_1fr] gap-2.5 text-sm leading-relaxed text-slate-700">
+            <CheckCircle2 className="mt-1 h-4 w-4 shrink-0 text-indigo-600" aria-hidden="true" />
+            <span>{b}</span>
           </li>
         ))}
       </ul>
@@ -1040,7 +1022,7 @@ function PriceCard({ title, price, bullets, ctaMsg, accent = false }) {
         className="mt-6 inline-flex items-center justify-center w-full px-4 py-2 rounded-2xl bg-indigo-600 text-white hover:bg-indigo-700"
         href={wa(ctaMsg)}
       >
-        Pesan via WhatsApp
+        Tanya Paket Ini
       </a>
 
     </div>
